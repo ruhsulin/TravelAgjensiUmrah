@@ -159,15 +159,15 @@ sup {
 }
 
 a {
-  color: #007bff;
+  color: #28a745;
   text-decoration: none;
   background-color: transparent;
 }
 
-a:hover {
-  color: #0056b3;
-  text-decoration: none;
-}
+    a:hover {
+        color: #28a745;
+        text-decoration: none;
+    }
 
 a:not([href]):not([class]) {
   color: inherit;
