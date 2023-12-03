@@ -10,8 +10,6 @@
     <Folder Include="Cache\" />
     <Folder Include="Constants\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Impementations\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Mappers\" />
   </ItemGroup>
 
@@ -26,6 +24,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TravelAgjensiUmrah.Data\TravelAgjensiUmrah.Data.csproj" />
   </ItemGroup>
 
 </Project>

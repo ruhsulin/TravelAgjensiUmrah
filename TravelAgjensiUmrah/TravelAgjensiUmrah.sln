@@ -13,19 +13,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2E3A6807-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A628A13F-87FF-449A-8381-19803C9D49A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgjensiUmrah.App", "..\TravelAgjensiUmrah.App\TravelAgjensiUmrah.App.csproj", "{97BA06A5-5155-4F6E-99E1-746D9E7003E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgjensiUmrah.App", "..\TravelAgjensiUmrah.App\TravelAgjensiUmrah.App.csproj", "{97BA06A5-5155-4F6E-99E1-746D9E7003E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgjensiUmrah.Data", "..\TravelAgjensiUmrah.Data\TravelAgjensiUmrah.Data.csproj", "{26C8EEF2-E956-4E87-8AF2-E85B681163BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgjensiUmrah.Data", "..\TravelAgjensiUmrah.Data\TravelAgjensiUmrah.Data.csproj", "{26C8EEF2-E956-4E87-8AF2-E85B681163BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgjensiUmrah.Models", "..\TravelAgjensiUmrah.Models\TravelAgjensiUmrah.Models.csproj", "{36C64838-4223-409A-A554-7617134ACEE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgjensiUmrah.Models", "..\TravelAgjensiUmrah.Models\TravelAgjensiUmrah.Models.csproj", "{36C64838-4223-409A-A554-7617134ACEE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelAgjensiUmrah.Utilities", "..\TravelAgjensiUmrah.Utilities\TravelAgjensiUmrah.Utilities.csproj", "{2D1218EF-70FC-4D6B-A0AE-56C5139E3F00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelAgjensiUmrah.Utilities", "..\TravelAgjensiUmrah.Utilities\TravelAgjensiUmrah.Utilities.csproj", "{2D1218EF-70FC-4D6B-A0AE-56C5139E3F00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "..\Presentation\Presentation.csproj", "{47BDFB9B-F563-4EEC-8E29-55EAA281BA42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation", "..\Presentation\Presentation.csproj", "{47BDFB9B-F563-4EEC-8E29-55EAA281BA42}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Schema", "..\Schema\Schema.sqlproj", "{C9A43742-1D46-4815-9A6C-AD40C40F1DAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scaffolding", "Scaffolding", "{50CDBC1E-E482-40A0-9E6E-C273C434C985}"
+	ProjectSection(SolutionItems) = preProject
+		Scaffolding Command.txt = Scaffolding Command.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
