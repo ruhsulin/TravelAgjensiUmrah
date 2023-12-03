@@ -8,6 +8,7 @@ namespace Presentation.Areas.Admin.Controllers
     [Authorize(Roles = RoleConstants.Admin)]
     public class HomeController : Controller
     {
+    // Index
         public IActionResult Index()
         {
             return View();
