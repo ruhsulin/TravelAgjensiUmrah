@@ -17,5 +17,10 @@ namespace TravelAgjensiUmrah.App.Impementations
         {
             return _travelAgencyUmrahContext.AspNetUsers.FirstOrDefault(x => x.Id == id)!;
         }
+
+        public IEnumerable<AspNetUser> GetAll()
+        {
+            return _travelAgencyUmrahContext.AspNetUsers.ToList();
+        }
     }
 }
