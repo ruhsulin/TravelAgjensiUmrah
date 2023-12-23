@@ -109,7 +109,6 @@ namespace TravelAgjensiUmrah.App.Impementations
         {
             if (CurrentUser != null)
             {
-                // return "";
                 return CurrentUser.Name + " " + CurrentUser.Surname;
             }
             else

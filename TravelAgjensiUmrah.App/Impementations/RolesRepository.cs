@@ -19,10 +19,10 @@ namespace TravelAgjensiUmrah.App.Impementations
             return _travelAgencyUmrahContext.AspNetUsers.FirstOrDefault(x => x.Id == userId)?.Roles.FirstOrDefault();
         }
 
-        // public AspNetRole? GetByStringId(string id)
-        //{
-        //  return _riinvestTravelDbContext.AspNetRoles.FirstOrDefault(x => x.Id == id);
-        // }
+        public AspNetRole? GetByStringId(string id)
+        {
+            return _travelAgencyUmrahContext.AspNetRoles.FirstOrDefault(x => x.Id == id);
+        }
 
 
     }

@@ -6,7 +6,7 @@ using TravelAgjensiUmrah.App.Constants;
 
 namespace Presentation.Areas.Client
 {
-    [Area("Client")]
+    [Area(AreasConstants.Client)]
     [Authorize(Roles = RoleConstants.Client)]
     public class HomeController : Controller
     {

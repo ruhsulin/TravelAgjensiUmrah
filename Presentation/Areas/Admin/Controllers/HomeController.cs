@@ -4,11 +4,11 @@ using TravelAgjensiUmrah.App.Constants;
 
 namespace Presentation.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area(AreasConstants.Admin)]
     [Authorize(Roles = RoleConstants.Admin)]
     public class HomeController : Controller
     {
-    // Index
+        // Index
         public IActionResult Index()
         {
             return View();

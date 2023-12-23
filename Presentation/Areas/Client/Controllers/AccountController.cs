@@ -10,7 +10,7 @@ using TravelAgjensiUmrah.Data.Identity;
 namespace Presentation.Areas.Client
 {
     [Authorize]
-    [Area("Client")]
+    [Area(AreasConstants.Client)]
     [Route("[area]/[controller]/[action]")]
     public class AccountController : Controller
     {
@@ -38,12 +38,15 @@ namespace Presentation.Areas.Client
         [AllowAnonymous]
         public async Task<IActionResult> Login(string? returnUrl = null)
         {
-            // create roles 
-            IdentityRole identityRoleClient = new IdentityRole("Client");
-            var resultClient = await _roleManager.CreateAsync(identityRoleClient);
+            // create roles - only one time
+            // ----------------------------
+            // IdentityRole identityRoleClient = new IdentityRole("Client");
+            // var resultClient = await _roleManager.CreateAsync(identityRoleClient);
 
-            IdentityRole identityRoleAdmin = new IdentityRole("Admin");
-            var resultAdmin = await _roleManager.CreateAsync(identityRoleAdmin);
+            // IdentityRole identityRoleAdmin = new IdentityRole("Admin");
+            // var resultAdmin = await _roleManager.CreateAsync(identityRoleAdmin);
+            // -----------------------------------------------------------------------
+
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
@@ -65,7 +68,7 @@ namespace Presentation.Areas.Client
                 if (result.Succeeded)
                 {
                     var user = await _userManager.FindByEmailAsync(model.Email); ;
-                    IList<string> roles = await _userManager.GetRolesAsync(user);
+                    IList<string>? roles = await _userManager.GetRolesAsync(user);
 
                     var roleName = roles.FirstOrDefault();
                     if (roleName == RoleConstants.Client)
@@ -267,7 +270,7 @@ namespace Presentation.Areas.Client
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(AccountController.Login), "AuthLayout");
         }
 
         [HttpPost]

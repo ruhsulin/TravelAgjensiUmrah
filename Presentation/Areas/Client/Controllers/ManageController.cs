@@ -5,13 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using Presentation.Areas.Client.Models.ManageViewModels;
 using System.Text;
 using System.Text.Encodings.Web;
+using TravelAgjensiUmrah.App.Constants;
 using TravelAgjensiUmrah.Data.Identity;
 
 
 namespace Presentation.Areas.Client
 {
     [Authorize]
-    [Area("Client")]
+    [Area(AreasConstants.Client)]
     [Route("[area]/[controller]/[action]")]
     public class ManageController : Controller
     {
