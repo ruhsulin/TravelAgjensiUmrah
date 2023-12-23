@@ -23,7 +23,5 @@ namespace TravelAgjensiUmrah.App.Impementations
         {
             return _travelAgencyUmrahContext.AspNetRoles.FirstOrDefault(x => x.Id == id);
         }
-
-
     }
 }
