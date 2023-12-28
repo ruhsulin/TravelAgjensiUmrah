@@ -1,7 +1,10 @@
 @using Microsoft.AspNetCore.Identity
-
+@using Microsoft.Extensions.Localization;
+@using Presentation
+@using Web
 @using Presentation.Areas.Admin.Models
 @using Presentation.Areas.Admin.Models.DashboardViewModels
 @using Presentation.Areas.Admin.Models.UserViewModels
-@using TravelAgjensiUmrah.Data.Identity;
+@using TravelAgjensiUmrah.Data.Identity
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject IStringLocalizer<SharedResource> SharedLocalizer

@@ -41,7 +41,11 @@ namespace TravelAgjensiUmrah.Data.Entities
         public DateTimeOffset? LockoutEnd { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
+        public int? PictureId { get; set; }
 
+        [ForeignKey("PictureId")]
+        [InverseProperty("AspNetUsers")]
+        public virtual UserPicture? Picture { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         [InverseProperty("User")]

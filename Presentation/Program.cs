@@ -1,5 +1,9 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using TravelAgjensiUmrah.App.Impementations;
 using TravelAgjensiUmrah.App.Interfaces;
 using TravelAgjensiUmrah.Data.Context;
@@ -23,6 +27,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IRolesRepository, RolesRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ISelectListService, SelectListService>();
+//builder.Services.AddTransient<ISelectListService, SelectListService>();
+//builder.Services.AddTransient<IFileHelper, FileHelper>();
+//builder.Services.AddTransient<IThumbnailService, ThumbnailService>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -45,16 +53,68 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = false;
 });
 
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var en = new CultureInfo("en-US");
+    en.NumberFormat.NumberDecimalSeparator = ".";
+    en.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+    en.DateTimeFormat.LongTimePattern = "dd/MM/yyyy";
+    en.DateTimeFormat.ShortTimePattern = "HH:mm";
+    en.DateTimeFormat.LongTimePattern = "HH:mm";
+    var al = new CultureInfo("sq-AL");
+    al.DateTimeFormat.ShortDatePattern = "dd.MM.yyyy";
+    al.DateTimeFormat.LongTimePattern = "dd.MM.yyyy";
+    al.DateTimeFormat.ShortTimePattern = "HH:mm";
+    al.DateTimeFormat.LongTimePattern = "HH:mm";
+    al.NumberFormat.NumberDecimalSeparator = ".";
+
+    var supportedCultures = new[]
+    {
+        en,
+        al
+    };
+
+    options.DefaultRequestCulture = new RequestCulture(en, en);
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+    options.CheckConsentNeeded = context => false; // was true
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
+
+builder.Services.Configure<CookieTempDataProviderOptions>(options =>
+{
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     // Cookie settings
     options.Cookie.HttpOnly = true;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
-    options.LoginPath = "/Identity/Account/Login";
-    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+    options.LoginPath = "/Client/Account/Login";
+    options.AccessDeniedPath = "/Client/Account/AccessDenied";
     options.SlidingExpiration = true;
 });
+
+builder.Services.AddSession(options =>
+{
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
+
+builder.Services.AddMvc()
+    .AddViewLocalization(
+        LanguageViewLocationExpanderFormat.Suffix,
+        opts => { opts.ResourcesPath = "Resources"; })
+    .AddDataAnnotationsLocalization();
+
 
 var app = builder.Build();
 
@@ -71,14 +131,24 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+var supportedCultures = new[] { "en-US", "sq-AL" };
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization(localizationOptions);
+
+
 app.UseRouting();
 
 app.MapControllerRoute(
     name: "MyArea",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area:exists=Client}/{controller=Home}/{action=Index}/{id?}");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 

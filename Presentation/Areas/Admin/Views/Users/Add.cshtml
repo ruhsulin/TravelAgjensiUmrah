@@ -1,9 +1,12 @@
 ﻿@model UserViewModel
 @{
     string cssClass = string.IsNullOrEmpty(Model.Id) ? "success" : "warning";
-    string cardTitle = string.IsNullOrEmpty(Model.Id) ? "Add" : "Edit";
-    string cardTitleDescription = string.IsNullOrEmpty(Model.Id) ? "Add new user" : "Edit current user";
-    ViewData["Title"] = "Add New User";
+    string cardTitle = string.IsNullOrEmpty(Model.Id) ? @SharedLocalizer["AddNewUser"] : SharedLocalizer["EditUser"];
+    string cardTitleDescription = string.IsNullOrEmpty(Model.Id) ? @SharedLocalizer["AddNewUser"] : @SharedLocalizer["EditCurrentUser"];
+    ViewData["Title"] = @SharedLocalizer["AddNewUser"];
+
+    var extensionsAll = "jpeg, jpg, png";
+    var extensions = extensionsAll.Split(",").Select(x => x.Trim()).ToArray();
 }
 
 @section Styles{
@@ -11,8 +14,9 @@
     <link rel="stylesheet" href="~/theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="~/theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="~/theme/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- File input style-->
     <link href="~/theme/plugins/fileinput/css/fileinput.min.css" rel="stylesheet" />
-
+     
     <!-- jQuery Confirm -->
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
@@ -31,15 +35,15 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Users</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home" asp-area="Admin">@SharedLocalizer["Home"]</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-action="Users" asp-area="Admin">@SharedLocalizer["Users"]</a></li>
                     @if (string.IsNullOrEmpty(Model.Id))
                     {
-                        <li class="breadcrumb-item active">Add</li>
+                        <li class="breadcrumb-item active">@SharedLocalizer["Add"]</li>
                     }
                     else
                     {
-                        <li class="breadcrumb-item"><a href="#">Edit</a></li>
+                        <li class="breadcrumb-item"><a href="#">@SharedLocalizer["Edit"]</a></li>
                         <li class="breadcrumb-item active">@Model.Id</li>
                     }
                 </ol>
@@ -89,7 +93,7 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Name *</label>
+                                        <label>@SharedLocalizer["Name"] *</label>
                                         <div class="input-group">
                                             <input type="text" asp-for="Name" class="form-control help-sidebar" data-title="User Name" data-description="Enter name..." placeholder="Enter name...">
                                             <div class="input-group-append ">
@@ -100,7 +104,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Surname</label>
+                                        <label>@SharedLocalizer["Surname"]</label>
                                         <input type="text" asp-for="Surname" class="form-control help-sidebar" data-title="User surname" data-description="Enter surname..." placeholder="Enter surname ...">
                                     </div>
                                 </div>
@@ -108,29 +112,29 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Email</label>
+                                        <label>@SharedLocalizer["Email"]</label>
                                         <input type="email" asp-for="Email" class="form-control" placeholder="Enter email ...">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Phone Number</label>
+                                        <label>@SharedLocalizer["PhoneNumber"]</label>
                                         <input type="tel" asp-for="PhoneNumber" class="form-control" placeholder="Enter phone number ...">
                                     </div>
                                 </div>
                             </div>
-                            @if (string.IsNullOrEmpty(Model.Id))
+                            @if(string.IsNullOrEmpty(Model.Id))
                             {
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Password</label>
+                                            <label>@SharedLocalizer["Password"]</label>
                                             <input type="password" asp-for="Password" class="form-control" placeholder="Enter password ...">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Confirm Password</label>
+                                            <label>@SharedLocalizer["ConfirmPassword"]</label>
                                             <input type="password" asp-for="ConfirmPassword" class="form-control" placeholder="Enter confirm password ...">
                                         </div>
                                     </div>
@@ -141,7 +145,7 @@
                                     <div class="form-group">
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" asp-for="EmailConfirmed" class="custom-control-input">
-                                            <label class="custom-control-label" for="EmailConfirmed">Email Confirmed</label>
+                                            <label class="custom-control-label" for="EmailConfirmed">@SharedLocalizer["EmailConfirmed"]</label>
                                         </div>
                                     </div>
                                 </div>
@@ -149,27 +153,26 @@
                                     <div class="form-group">
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" asp-for="PhoneNumberConfirmed" class="custom-control-input">
-                                            <label class="custom-control-label" for="PhoneNumberConfirmed">Phone Number Confirmed</label>
+                                            <label class="custom-control-label" for="PhoneNumberConfirmed">@SharedLocalizer["PhoneConfirmed"]</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <!-- select -->
                                     <div class="form-group">
                                         <label>Select role</label>
                                         <select asp-for="RoleId" asp-items="@Model.Roles" class="form-control">
-                                            <option value="">- Select Role -</option>
+                                            <option value="">- @SharedLocalizer["SelectRole"] -</option>
                                         </select>
-                                    </div>
+                                    </div> 
                                 </div>
-                            </div>
-                           @* <div class="row">
-                                <div class="col-sm-12">
+                      
+                                <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Picture</label>
-                                        <div class="custom-file">
+                                        <label>@SharedLocalizer["Picture"]</label>
+                                        <div class="custom-file"> <!-- mas ksaj klase implementohet plugin-->
                                             <div>
                                                 <input asp-for="Picture" type="file" accept="image/*" class="input-sm validate-upload" />
                                             </div>
@@ -178,13 +181,14 @@
                                     </div>
                                 </div>
                                 <!-- /.col -->
-                            </div>*@
+                            </div> <!-- End of Role & Picture div-->
+
 
                         @*</div>*@
                         <!-- /.card-body -->
                         <!-- /.card-footer -->
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-@cssClass">Submit</button>
+                                <button type="submit" class="btn btn-@cssClass">@SharedLocalizer["Submit"]</button>
                         </div>
                     </form>
                 </div>
@@ -236,7 +240,8 @@
             $(window).scroll(function () {
                 $("#right-sidebar").css("margin-top", Math.max(0, $(this).scrollTop()-112));
             });
-            var maxUpload = 3000;
+            var maxUpload = 2048;
+            var uploadExtensions = @Html.Raw(Json.Serialize(extensions));
             var uploadExtensions;
 
             $('#UserForm').validate({
@@ -276,7 +281,7 @@
                         minlength: "SharedLocalizer('MinLength3')"
                     },
                     Surname: {
-                        required: "SharedLocalizer('FieldRequired')",
+                        required: "SharedLocalizer('FieldRequired')", 
                         minlength: "SharedLocalizer('MinLength3')"
                     },
                     Email: {
@@ -316,6 +321,7 @@
                 }
             });
 
+            // Konfigurimet per FIle - PHOTO
             if ('@Model.Id' == '0') {
                 $("#Picture").fileinput({
                     theme: "fa",
@@ -363,6 +369,7 @@
                     },
                 });
             }
+            // end of PHOTO
 
             $('#Picture').on('fileclear', function(event) {
                 $('#IsPictureDeleted').val("True");

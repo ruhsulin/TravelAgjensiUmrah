@@ -40,7 +40,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="nav-link active">
+                    <a asp-area ="Admin" asp-controller="Home" asp-action="Index" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -53,14 +53,20 @@
                 <li class="nav-item">
                     <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Users
-                          
-                        </p>
+                        <p> Users </p>
                     </a>
                   
                 </li>
                 <!-- End of Users-->
+
+                <!-- Packages -->
+                <li class="nav-item">
+                    <a asp-area="Admin" asp-controller="Packages" asp-action="Index" class="nav-link">
+                        <i class="nav-icon fas fa-box"></i>
+                        <p> Packages </p>
+                    </a>
+                </li>
+                <!-- End of Packages-->
 
 
                 <!-- Packages -->

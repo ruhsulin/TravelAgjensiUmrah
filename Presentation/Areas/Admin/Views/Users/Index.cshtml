@@ -16,7 +16,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Users</h1>
+                <h1>@SharedLocalizer["Users"]</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -36,7 +36,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Manage Users List</h3>
+                        <div class="row">
+                        <h3 class="col-10 card-title"> @SharedLocalizer["UserList"]</h3>
+                        <a asp-action="Add" asp-controller="Users" asp-area="Admin" class="col-2 btn btn-success"> @SharedLocalizer["AddNewUser"]</a>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -94,18 +97,36 @@
                     url: url,
                     dataSrc: ""
                 },
-                columns: [ 
-                   
-                    { data: "name", title: "Name", width: "4%"},
-                    { data: "surname", title: "Surname", width: "4%"},
-                    { data: "email", title: "Email", width: "4%"},
-                    { data: "emailConfirmed", title: "EmailConfirmed", width: "4%",
+                language: {
+                    "sEmptyTable": '@SharedLocalizer["NoDataAvailableInTable"]',
+                    "sInfo": '@SharedLocalizer["Showing"] _START_ @SharedLocalizer["to"] _END_ @SharedLocalizer["of"] _TOTAL_ @SharedLocalizer["entries"]',
+                    // Other localization keys...
+                    "columns": {
+                        "name": '@SharedLocalizer["Name"]',
+                        "surname": '@SharedLocalizer["Surname"]',
+                        "roles": '@SharedLocalizer["Role"]',
+                        "email": '@SharedLocalizer["Email"]',
+                        "emailConfirmed": '@SharedLocalizer["EmailConfirmed"]',
+                        "actions": '@SharedLocalizer["Actions"]',
+                        // Other columns using their respective localization keys
+                        // ...
+                    }
+                },
+                columns: [
+
+                    { data: "name", title: '@SharedLocalizer["Name"]', width: "4%" },
+                    { data: "surname", title: '@SharedLocalizer["Surname"]', width: "4%" },
+                    { data: "roles", title: "@SharedLocalizer["Role"]", width: "4%" },
+                    { data: "email", title: "@SharedLocalizer["Email"]", width: "4%" },
+
+                    {
+                        data: "emailConfirmed", title: "@SharedLocalizer["EmailConfirmed"]", width: "4%",
                       render: function(a, b, data, d) {
                             if (data.emailConfirmed == true) { return '<i class="fa fa-check text-success"></i>'; }
                             else { return '<i class="fa fa-times text-danger"></i>'; }
                          }},
                     { data: null,
-                        title: "Actions",
+                        title: "@SharedLocalizer["Actions"]",
                         sClass: "text-center",
                         width: "4%",
                         render: function (a, b, data, d) {
@@ -163,7 +184,7 @@
                                 },
                                 success: function (data) {
                                     debugger;
-                                    table.ajax.reload();
+                                    $('#user-list').DataTable().ajax.reload();
                                     toastr.success('Deleted Successfully');
                                 },
                                 error: function (xhr, textStatus, errorThrown) 

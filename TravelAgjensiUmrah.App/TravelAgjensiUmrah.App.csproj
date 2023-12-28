@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TravelAgjensiUmrah.Data\TravelAgjensiUmrah.Data.csproj" />
+    <ProjectReference Include="..\TravelAgjensiUmrah.Models\TravelAgjensiUmrah.Models.csproj" />
   </ItemGroup>
 
 </Project>

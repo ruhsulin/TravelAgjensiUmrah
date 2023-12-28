@@ -1,4 +1,8 @@
-﻿
+﻿@using TravelAgjensiUmrah.App.Constants;
+@{
+    var culture = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +30,8 @@
     <link rel="stylesheet" href="~/theme/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="~/theme/plugins/summernote/summernote-bs4.min.css">
+    <!-- flag-icon-css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css">
 
     @RenderSection("Styles", false)
 </head>
@@ -75,6 +81,25 @@
                     </div>
                 </li>
                 <!-- Notifications Dropdown Menu -->
+                <li class="nav-item dropdown">
+                    @if (culture == LanguageConstants.AlbanianKey)
+                    {
+                        <!-- Code for Albanian language -->
+                        <!-- Check the URL being generated -->
+                        <a asp-area="Admin" asp-controller="Home" asp-action="SetLanguage" value=@LanguageConstants.EnglishKey name="culture" asp-route-culture="en-US" class="dropdown-item">
+                            <i class="flag-icon flag-icon-us mr-2"></i> @SharedLocalizer[""]
+                        </a>
+                    }
+                    else
+                    {
+                        <!-- Code for English language -->
+                        <!-- Check the URL being generated -->
+                        <a asp-area="Admin" asp-controller="Home" asp-action="SetLanguage" value=@LanguageConstants.AlbanianKey name="culture" asp-route-culture="sq-AL" class="dropdown-item">
+                            <i class="flag-icon flag-icon-al mr-2"></i> @SharedLocalizer[""]
+                        </a>
+                    }
+
+
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
