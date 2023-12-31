@@ -1,33 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TravelAgjensiUmrah.Data.Entities
 {
     public partial class Hotel
     {
-        public Hotel()
-        {
-            Packages = new HashSet<Package>();
-        }
-
         [Key]
-        [Column("id")]
         public int Id { get; set; }
-        [Column("name")]
         [StringLength(100)]
-        public string? Name { get; set; }
-        [Column("stars")]
-        public int? Stars { get; set; }
-        [Column("photo")]
-        public string? Photo { get; set; }
-        [Column("location")]
+        public string? HotelName { get; set; }
         [StringLength(100)]
         public string? Location { get; set; }
-
-        [InverseProperty("Hotel")]
-        public virtual ICollection<Package> Packages { get; set; }
+        public int Stars { get; set; }
+        [StringLength(255)]
+        public string? Description { get; set; }
+        public string? Photo { get; set; }
     }
 }

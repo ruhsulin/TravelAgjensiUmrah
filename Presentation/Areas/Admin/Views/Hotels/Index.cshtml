@@ -1,0 +1,181 @@
+﻿@{
+    ViewData["Title"] = "Hotels";
+}
+
+@section Styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <!-- jQuery Confirm -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@SharedLocalizer["Hotels"]</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Hotels</a></li>
+                    <li class="breadcrumb-item active">Index</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                        <h3 class="col-10 card-title"> @SharedLocalizer["HotelList"]</h3>
+                            <a asp-action="AddHotel" asp-controller="Hotels" asp-area="Admin" class="col-2 btn btn-success"> @SharedLocalizer["AddNewHotel"]</a>
+                        </div>
+                    </div>
+                    <!-- end of /.card-header -->
+                    <div class="card-body">
+                        <table id="hotel-list" class="table table-bordered table-hover">
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+@section Scripts {
+    <!-- DataTables  & Plugins -->
+    <script src="~/theme/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/theme/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/theme/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/theme/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/theme/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/theme/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/theme/plugins/jszip/jszip.min.js"></script>
+    <script src="~/theme/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/theme/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/theme/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/theme/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/theme/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- jQuery Confirm -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var url = "@Url.Action("GetHotelsJson", "Hotels")";
+            var table = $('#hotel-list').DataTable({
+                buttons: [
+                    'copy', 'excel', 'pdf', 'print'
+                ],
+                dom: 'frtipB',
+                pageLength: 15,
+                responsive: true,
+                autoWidth: false,
+                order: [[0, "desc"]],
+                //"processing" : true,
+                //"serverSide": true,
+                //"filter" : true,
+                //"orderMulti": false,
+
+                ajax: {
+                    url: url,
+                    dataSrc: ""
+                },
+                columns: [
+                    {data: "id", title: "Id", width: "4%"},
+                    { data: "name", title: "Name" },
+                    { data: "stars", title: "Stars" },
+                    { data: "location", title: "City" },
+                    {
+                        data: null, title: "@SharedLocalizer["Actions"]",
+                        sClass: "text-center",
+                        width: "6%",
+                        sClass: "text-center",
+                        render: function (a, b, data, d) {
+                            var actions = '';
+
+                            var urlDetails = '@Url.Action("Details", "Hotels", new {area = "Admin"})';
+                            actions += '<a class="btn btn-info btn-sm href="' + urlDetails + '/' + data.id + '" title="Details" style="padding: 3px;"><i class="fa fa-eye" style="font-size: 13px;"></i></a> ';
+
+                            var urlEdit = '@Url.Action("Edit", "Hotels", new {area = "Admin"})';
+                            actions += '<a class="btn btn-warning btn-sm" href="' + urlEdit + '/' + data.id + '" title="Edit" style="padding: 3px;"><i class="fa fa-edit" style="font-size: 13px;"></i></a> ';
+
+                            actions += '<a class="btn btn-danger btn-sm js-delete" href="javascript:void(0)" data-id="' + data.id + '" title="Delete" style="padding: 3px;"><i class="fa fa-trash" style="font-size: 13px;"></i></a>';
+
+                            return actions;
+                        }
+
+                    }
+                  
+                ],
+            });
+        });
+
+        $(document).on("click", ".js-delete", function () {
+
+            debugger;
+            var dataId = $(this).attr("data-id");
+
+            $.confirm({
+                title: '<i class="fa fa-warning"></i> Please Confirm',
+                content: 'Are you sure you want to delete this hotel?!',
+
+                type: 'red',
+                closeIcon: true,
+                closeIconClass: 'fa fa-close',
+                buttons: {
+                    cancel: {
+                        text: 'Cancel',
+                        keys: ['esc'],
+                        action: function () { }
+                    },
+                    confirm: {
+                        text: 'Delete',
+                        btnClass: 'btn-danger',
+                        keys: ['enter'],
+                        action: function () {
+                            var url = '@Url.Action("DeleteHotel")';
+                            $.ajax({
+                                type: "DELETE",
+                                async: false,
+                                url: url,
+                                dataType: "json",
+                                data: {
+                                    id: dataId,
+                                },
+                                success: function (data) {
+                                    debugger;
+                                    $('#hotel-list').DataTable().ajax.reload();
+                                    toastr.success('Deleted Successfully');
+                                },
+                                error: function (xhr, textStatus, errorThrown) {
+                                    debugger;
+                                    toastr.error('Something went wrong!');
+                                }
+                            });
+                        }
+                    },
+
+                }
+            });
+        });
+    </script>
+}
+
+
+

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Presentation.FileHelper;
 using System.Globalization;
 using TravelAgjensiUmrah.App.Impementations;
 using TravelAgjensiUmrah.App.Interfaces;
@@ -29,8 +30,11 @@ builder.Services.AddTransient<IRolesRepository, RolesRepository>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ISelectListService, SelectListService>();
 //builder.Services.AddTransient<ISelectListService, SelectListService>();
-//builder.Services.AddTransient<IFileHelper, FileHelper>();
-//builder.Services.AddTransient<IThumbnailService, ThumbnailService>();
+builder.Services.AddTransient<IFileHelper, FileHelper>();
+builder.Services.AddTransient<IThumbnailService, ThumbnailService>();
+builder.Services.AddTransient<IHotelRepository, HotelRepository>();
+builder.Services.AddTransient<IActivityRepository, ActivityRepository>();
+
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

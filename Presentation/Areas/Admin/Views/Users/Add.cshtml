@@ -171,10 +171,10 @@
                       
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>@SharedLocalizer["Picture"]</label>
+                                        <label>@SharedLocalizer["MainImage"]</label>
                                         <div class="custom-file"> <!-- mas ksaj klase implementohet plugin-->
                                             <div>
-                                                <input asp-for="Picture" type="file" accept="image/*" class="input-sm validate-upload" />
+                                                <input  asp-for="Picture" type="file" accept="image/*" class="input-sm validate-upload" />
                                             </div>
                                         </div>
                                         <label><small>.jpg | 3mb max</small></label>
@@ -240,9 +240,10 @@
             $(window).scroll(function () {
                 $("#right-sidebar").css("margin-top", Math.max(0, $(this).scrollTop()-112));
             });
+
             var maxUpload = 2048;
             var uploadExtensions = @Html.Raw(Json.Serialize(extensions));
-            var uploadExtensions;
+            
 
             $('#UserForm').validate({
                 rules: {
@@ -322,8 +323,8 @@
             });
 
             // Konfigurimet per FIle - PHOTO
-            if ('@Model.Id' == '0') {
-                $("#Picture").fileinput({
+           // if ('@Model.Id' == '0') {
+                $("#Picture ").fileinput({
                     theme: "fa",
                     showZoom: false,
                     browseOnZoneClick: true,
@@ -340,38 +341,38 @@
                     fileActionSettings: {
                         showRemove: true,
                     }
-                });
-            }
-            else {
-                var previewImageThumbnail = [];
-                var initialPreviewConfigThumbnail = [];
+              //  });
+         //   }
+          //  else {
+            //    var previewImageThumbnail = [];
+            //    var initialPreviewConfigThumbnail = [];
           
-                $("#Picture").fileinput({
-                    overwriteInitial: true,//server upload action
-                    theme: "fa",
-                    overwriteInitial: true,
-                    showZoom: false,
-                    browseOnZoneClick: true,
-                    resizeImage: true,
-                    maxFileSize: maxUpload,
-                    allowedFileExtensions: uploadExtensions,
-                    resizeImageQuality: 0.3,
-                    showRemove: true,
-                    showUpload: false,
-                    showBrowse: true,
-                    showCancel: false,
-                    dropZoneEnabled: false,
-                    initialPreview: previewImageThumbnail,
-                    initialPreviewAsData: true,
-                    initialPreviewConfig: initialPreviewConfigThumbnail,
-                    fileActionSettings: {
-                        showRemove: true,
-                    },
-                });
-            }
+            //    $("#Picture").fileinput({
+            //        overwriteInitial: true,//server upload action
+            //        theme: "fa",
+            //        overwriteInitial: true,
+            //        showZoom: false,
+            //        browseOnZoneClick: true,
+            //        resizeImage: true,
+            //        maxFileSize: maxUpload,
+            //        allowedFileExtensions: uploadExtensions,
+            //        resizeImageQuality: 0.3,
+            //        showRemove: true,
+            //        showUpload: false,
+            //        showBrowse: true,
+            //        showCancel: false,
+            //        dropZoneEnabled: false,
+            //        initialPreview: previewImageThumbnail,
+            //        initialPreviewAsData: true,
+            //        initialPreviewConfig: initialPreviewConfigThumbnail,
+            //        fileActionSettings: {
+            //            showRemove: true,
+            //        },
+            //    });
+            //}
             // end of PHOTO
 
-            $('#Picture').on('fileclear', function(event) {
+            $('#MainImage').on('fileclear', function(event) {
                 $('#IsPictureDeleted').val("True");
             });
             

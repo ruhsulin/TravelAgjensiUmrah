@@ -77,14 +77,12 @@
 
     <script>
         $(document).ready(function () {
-            var url = "@Url.Action("GetUsersJson", "Users")"; // Use GetUsersJson action
+            var url = "@Url.Action("GetUsersJson", "Users", "Admin")"; // Use GetUsersJson action - Nes
 
             $("#user-list").DataTable({
-                buttons: [
-                    'copy', 'excel', 'pdf'
-                ],
-                dom: 'Bfrtip',
-                pageLength: 5,
+                buttons: [ 'copy', 'excel', 'pdf', 'print'],
+                dom: 'frtipB',
+                pageLength: 10,
                 responsive: true,
                 autoWidth: false,
                 order: [[0, "desc"]],
@@ -92,7 +90,6 @@
                 //"serverSide": true,
                 //"filter": true,
                 //"orderMulti": false,
-
                 ajax: {
                     url: url,
                     dataSrc: ""
@@ -113,22 +110,23 @@
                     }
                 },
                 columns: [
-
-                    { data: "name", title: '@SharedLocalizer["Name"]', width: "4%" },
-                    { data: "surname", title: '@SharedLocalizer["Surname"]', width: "4%" },
-                    { data: "roles", title: "@SharedLocalizer["Role"]", width: "4%" },
-                    { data: "email", title: "@SharedLocalizer["Email"]", width: "4%" },
-
-                    {
-                        data: "emailConfirmed", title: "@SharedLocalizer["EmailConfirmed"]", width: "4%",
+                    { data: "picture", title: "Picture", width: "2%", height:'2%', sClass:"text-center", render: function (a, b, data, d) {
+                            return "<img src='" + data.picture + " 'style='border-radius: 25px;'></img>"
+                        }
+                    },
+                    { data: "name", title: '@SharedLocalizer["Name"]', width: "4%", sClass: "text-center" },
+                    { data: "surname", title: '@SharedLocalizer["Surname"]', width: "4%", sClass: "text-center" },
+                    { data: "email", title: "@SharedLocalizer["Email"]", width: "4%", sClass: "text-center" },
+                    { data: "emailConfirmed", title: "@SharedLocalizer["EmailConfirmed"]", width: "4%", sClass: "text-center",
                       render: function(a, b, data, d) {
                             if (data.emailConfirmed == true) { return '<i class="fa fa-check text-success"></i>'; }
                             else { return '<i class="fa fa-times text-danger"></i>'; }
                          }},
-                    { data: null,
-                        title: "@SharedLocalizer["Actions"]",
+                    { data: "role", title: "@SharedLocalizer["Role"]", width: "4%", sClass: "text-center" },
+                    { data: null, title: "@SharedLocalizer["Actions"]",
                         sClass: "text-center",
                         width: "4%",
+                        sClass: "text-center",
                         render: function (a, b, data, d) {
                             var actions = '<div class="btn-group btn-hspace">'
                                 + '<button type="button" data-toggle="dropdown" class="btn btn-default btn-sm dropdown-toggle" aria-expanded="true"><span class="icon mdi mdi-chevron-down"></span></button>'

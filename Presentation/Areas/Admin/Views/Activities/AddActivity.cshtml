@@ -1,0 +1,106 @@
+﻿@model ActivityViewModel
+@{
+    string cssClass = Model.Id == 0 ? "success" : "warning";
+    string cardTitle = Model.Id == 0 ? @SharedLocalizer["AddNewHotel"] : SharedLocalizer["EditHotel"];
+    string cardTitleDescription = Model.Id == 0 ? @SharedLocalizer["AddNewHotel"] : @SharedLocalizer["EditCurrentHotel"];
+    ViewData["Title"] = @SharedLocalizer["AddNewHotel"];
+
+    var extensionsAll = "jpeg, jpg, png";
+    var extensions = extensionsAll.Split(",").Select(x => x.Trim()).ToArray();
+}
+
+@section Styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- File input style-->
+    <link href="~/theme/plugins/fileinput/css/fileinput.min.css" rel="stylesheet" />
+     
+    <!-- jQuery Confirm -->
+    
+    }
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <!-- Content header elements here -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12" id="left-side-bar">
+                <div class="card card-@cssClass">
+                    <div class="card-header">
+                        <h3 class="card-title">@cardTitleDescription</h3>
+                        <!-- Card header elements here -->
+                    </div> <!--/.card-header -->
+
+                    <form id="ActivityForm" asp-action="AddOrEditActivity" asp-controller="Activities" asp-area="Admin" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="card-body">
+                            <div class="row">
+                               
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>@SharedLocalizer["Name"] *</label>
+                                            <div class="input-group">
+                                                <input type="text" asp-for="ActivityName" class="form-control help-sidebar" data-title="Activity Name" data-description="Enter name..." placeholder="Enter name...">
+                                                <div class="input-group-append ">
+                                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Location -->
+                                    <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <select asp-for="ActivityLocation" class="form-control select2" style="width: 100%;">
+                                            <option selected="selected">Meke</option>
+                                            <option>Medina</option>
+                                                       
+                                        </select>
+                                    </div>
+                                    </div>
+                             
+                                <!-- Form content here -->
+                            </div> <!-- end of class="row" -->
+
+                            <!-- Rreshti dyte -->
+                            <div class="row">
+
+                                <!-- Picture-->
+                                <div class="col-sm-12">
+                                    <!-- textarea -->
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea asp-for="ActivityDescription" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                    </div>
+                                </div>
+                                <!-- Form content here -->
+                            </div> <!-- end of class="row" Reshti dyte -->
+                        </div> <!-- end of class="card-body" -->
+
+                    
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-@cssClass">@SharedLocalizer["Submit"]</button>
+                            </div>
+                       
+                    </form>
+                </div> <!-- /.card -->
+            </div> <!-- /.id="left-side-bar" -->
+        </div> <!-- end of row -->
+    </div> <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+@section Scripts{
+    <!-- jquery-validation -->
+    <script src="~/theme/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/theme/plugins/jquery-validation/additional-methods.min.js"></script>
+
+    <!-- File Input -->
+    <script src="~/theme/plugins/fileinput/js/fileinput.min.js"></script>
+    }

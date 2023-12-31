@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Presentation.Areas.Admin.Models.UserViewModels;
+using Presentation.FileHelper;
 using System.Data;
 using TravelAgjensiUmrah.App.Constants;
+using TravelAgjensiUmrah.App.Enums;
 using TravelAgjensiUmrah.App.Interfaces;
 using TravelAgjensiUmrah.Data.Entities;
 using TravelAgjensiUmrah.Data.Identity;
@@ -20,9 +22,10 @@ namespace Presentation.Areas.Admin.Controllers
         private readonly IRolesRepository rolesRepository;
         private readonly ILogger _logger;
         private readonly ISelectListService _selectListService;
+        private readonly IFileHelper _fileHelper;
 
 
-        public UsersController(IUserRepository userRepository, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IRolesRepository rolesRepository, ILogger<UsersController> logger, ISelectListService selectListService)
+        public UsersController(IUserRepository userRepository, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IRolesRepository rolesRepository, ILogger<UsersController> logger, ISelectListService selectListService, IFileHelper fileHelper)
         {
             _userRepository = userRepository;
             _userManager = userManager;
@@ -31,21 +34,13 @@ namespace Presentation.Areas.Admin.Controllers
             this.rolesRepository = rolesRepository;
             _logger = logger;
             _selectListService = selectListService;
+            _fileHelper = fileHelper;
         }
 
         [HttpGet]
         public IActionResult Index()
 
         {
-            // Call GetUsersJson action to retrieve users' JSON data
-            IActionResult usersJsonResult = GetUsersJson();
-
-            // Access the JSON data from the IActionResult
-            JsonResult jsonResult = usersJsonResult as JsonResult;
-            var usersData = jsonResult?.Value; // Contains the users' JSON data
-
-            // Process 'usersData' as needed in your Index2 action
-
             return View();
         }
 
@@ -93,168 +88,128 @@ namespace Presentation.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!string.IsNullOrEmpty(model.Id)) // If there's an ID, it's an edit operation
+                string userId = "";
+                if (string.IsNullOrEmpty(model.Id))
                 {
-                    var existingUser = await _userManager.FindByIdAsync(model.Id);
-
-                    if (existingUser == null)
-                    {
-                        return NotFound(); // Handle if user is not found
-                    }
-
-                    existingUser.Name = model.Name;
-                    existingUser.Surname = model.Surname;
-                    existingUser.Email = model.Email;
-                    existingUser.EmailConfirmed = model.EmailConfirmed;
-                    existingUser.PhoneNumber = model.PhoneNumber;
-
-                    // Update other properties as needed
-
-                    var result = await _userManager.UpdateAsync(existingUser);
-
-                    if (result.Succeeded)
-                    {
-                        // Fetch existing roles of the user
-                        var userRoles = await _userManager.GetRolesAsync(existingUser);
-
-                        // Remove existing roles
-                        var removeRolesResult = await _userManager.RemoveFromRolesAsync(existingUser, userRoles);
-
-                        if (!removeRolesResult.Succeeded)
-                        {
-                            foreach (var error in removeRolesResult.Errors)
-                            {
-                                ModelState.AddModelError(string.Empty, error.Description);
-                            }
-                            return View("Add", model);
-                        }
-
-                        // Assign the new role
-                        var selectedRole = rolesRepository.GetByStringId(model.RoleId);
-
-                        if (selectedRole != null)
-                        {
-                            var roleResult = await _userManager.AddToRoleAsync(existingUser, selectedRole.Name);
-
-                            if (roleResult.Succeeded)
-                            {
-                                _logger.LogInformation($"User with ID {model.Id} updated with new role: {selectedRole.Name}");
-                                return RedirectToAction("Index");
-                            }
-                            else
-                            {
-                                _logger.LogError($"Failed to assign role {selectedRole.Name} to the user.");
-                                ModelState.AddModelError(string.Empty, "Failed to assign user role. Please try again.");
-                                return View("Add", model);
-                            }
-                        }
-                        else
-                        {
-                            ModelState.AddModelError(string.Empty, "Selected role not found.");
-                            return View("Add", model);
-                        }
-                    }
-                    if (result.Succeeded)
-                    {
-                        var userRoles = await _userManager.GetRolesAsync(existingUser);
-
-                        _logger.LogInformation($"User with ID {model.Id} updated.");
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(string.Empty, error.Description);
-                        }
-                        return View("Indexs", model);
-                    }
-                }
-                else // It's a new user being added
-                {
-                    var user = new ApplicationUser
-                    {
-                        Name = model.Name,
-                        Surname = model.Surname,
-                        UserName = model.Email,
-                        Email = model.Email,
-                        EmailConfirmed = model.EmailConfirmed,
-                        PhoneNumber = model.PhoneNumber,
-                        PhoneNumberConfirmed = model.PhoneNumberConfirmed
-                    };
-
+                    var user = new ApplicationUser { Name = model.Name, Surname = model.Surname, UserName = model.Email, Email = model.Email, EmailConfirmed = model.EmailConfirmed, PhoneNumber = model.PhoneNumber, PhoneNumberConfirmed = model.PhoneNumberConfirmed };
                     var result = await _userManager.CreateAsync(user, model.Password);
-
                     if (result.Succeeded)
                     {
+                        userId = user.Id;
                         var selectedRole = rolesRepository.GetByStringId(model.RoleId);
-
                         if (selectedRole != null)
                         {
                             var roleResult = await _userManager.AddToRoleAsync(user, selectedRole.Name);
-
                             if (roleResult.Succeeded)
                             {
                                 _logger.LogInformation($"User created with role {selectedRole.Name}");
-                                return RedirectToAction("Index");
-                            }
-                            else
-                            {
-                                _logger.LogError($"Failed to assign role {selectedRole.Name} to the user.");
-                                await _userManager.DeleteAsync(user);
-                                ModelState.AddModelError(string.Empty, "Failed to assign user role. Please try again.");
-                                return View("Add", model);
                             }
                         }
-                        else
-                        {
-                            foreach (var error in result.Errors)
-                            {
-                                ModelState.AddModelError(string.Empty, error.Description);
-                            }
-                            return View("Add", model);
-                        }
+
+                        _logger.LogInformation("User created a new account with password.");
                     }
-                    else
+                }
+                else
+                {
+                    var user = await _userManager.FindByIdAsync(model.Id);
+                    if (user != null)
                     {
-                        foreach (var error in result.Errors)
+                        userId = user.Id;
+                        user.Name = model.Name;
+                        user.Surname = model.Surname;
+                        user.Email = model.Email;
+                        user.EmailConfirmed = model.EmailConfirmed;
+                        user.PhoneNumber = model.PhoneNumber;
+                        user.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
+
+                        var editResult = await _userManager.UpdateAsync(user);
+
+                        if (editResult.Succeeded)
                         {
-                            ModelState.AddModelError(string.Empty, error.Description);
+                            var currentRole = rolesRepository.GetByUserId(user.Id);
+                            if (currentRole != null && currentRole.Id != model.RoleId)
+                            {
+                                var result = await _userManager.RemoveFromRoleAsync(user, currentRole.Name);
+                                if (result.Succeeded)
+                                {
+                                    var selectedRole = rolesRepository.GetByStringId(model.RoleId);
+                                    if (selectedRole != null)
+                                    {
+                                        await _userManager.AddToRoleAsync(user, selectedRole.Name);
+                                    }
+                                }
+                            }
                         }
-                        return View("Add", model);
+
+                        //if (model.IsPictureDeleted)
+                        //{
+                        //    var findExisting = _userRepository.GetUserPicture(user.Id);
+                        //    if (findExisting != null)
+                        //    {
+                        //        _userRepository.DeleteUserPicture(findExisting);
+                        //    }
+                        //}
+                    }
+                }
+
+                if (model.Picture != null)
+                {
+                    var fileName = Path.GetFileName(model.Picture.FileName);
+                    var uploadPath = "~/uploads/users/" + userId.ToString() + "/Image/" + fileName;
+
+                    _fileHelper.SaveFile(FileTypesEnum.Image, model.Picture, "users", userId.ToString(), (int)ThumbnailsEnum.Grid, (int)ThumbnailsEnum.Catalog);
+
+                    var findExisting = _userRepository.GetUserPicture(userId);
+                    if (findExisting != null)
+                    {
+                        _userRepository.DeleteUserPicture(findExisting);
+                    }
+                    var userPicture = new UserPicture
+                    {
+                        FileName = fileName,
+                        Path = uploadPath,
+                        Extension = Path.GetExtension(fileName)
+                    };
+                    _userRepository.AddUserPicture(userPicture);
+
+                    var editUser = _userRepository.GetByStringId(userId);
+                    if (editUser != null)
+                    {
+                        editUser.PictureId = userPicture.Id;
+                        _userRepository.Update(editUser);
+                        _userRepository.SaveChanges();
                     }
                 }
             }
 
-            return View("Add", model);
+            return RedirectToAction("Index");
         }
 
-
-
-        [HttpGet]
         public IActionResult GetUsersJson()
         {
-            var users = _userRepository.GetAll();
-
-            var result = users.Select(async x =>
+            try
             {
-                var user = await _userManager.FindByIdAsync(x.Id);
-                var roles = user != null ? string.Join(", ", await _userManager.GetRolesAsync(user)) : string.Empty;
-
-                return new
+                var users = _userRepository.GetAllWithRoles();
+                users.ForEach(x => x.PasswordHash = _userRepository.GetProfilePicturePath(x.Id, (int)ThumbnailsEnum.Grid));
+                var result = users.Select(x => new
                 {
-                    id = user?.Id,
-                    name = user?.Name,
-                    surname = user?.Surname,
-                    roles,
-                    email = user?.Email,
-                    emailConfirmed = user?.EmailConfirmed
-                };
-            }).Select(task => task.Result); // Ensure async execution completes synchronously
+                    id = x.Id,
+                    picture = x.PasswordHash,
+                    name = x.Name,
+                    surname = x.Surname,
+                    email = x.Email,
+                    emailConfirmed = x.EmailConfirmed,
+                    role = x.Roles.FirstOrDefault()!.Name
+                });
 
-            return new JsonResult(result);
+                return new JsonResult(result);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
-
 
 
         [HttpDelete]
