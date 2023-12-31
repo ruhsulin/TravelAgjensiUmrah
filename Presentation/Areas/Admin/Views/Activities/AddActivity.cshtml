@@ -41,8 +41,9 @@
                     <form id="ActivityForm" asp-action="AddOrEditActivity" asp-controller="Activities" asp-area="Admin" method="post" enctype="multipart/form-data">
                         <input type="hidden" asp-for="Id" />
                         <div class="card-body">
+                            <!-- Rreshti pare: Name and Location -->
                             <div class="row">
-                               
+                                    <!-- Name -->
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>@SharedLocalizer["Name"] *</label>
@@ -53,25 +54,21 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> <!-- end of name -->
                                     <!-- Location -->
                                     <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>City</label>
                                         <select asp-for="ActivityLocation" class="form-control select2" style="width: 100%;">
                                             <option selected="selected">Meke</option>
-                                            <option>Medina</option>
-                                                       
+                                            <option>Medina</option>               
                                         </select>
                                     </div>
-                                    </div>
-                             
-                                <!-- Form content here -->
+                                    </div> <!-- end of location -->
                             </div> <!-- end of class="row" -->
 
-                            <!-- Rreshti dyte -->
+                            <!-- Rreshti dyte: Description -->
                             <div class="row">
-
                                 <!-- Picture-->
                                 <div class="col-sm-12">
                                     <!-- textarea -->
@@ -80,15 +77,11 @@
                                         <textarea asp-for="ActivityDescription" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                                     </div>
                                 </div>
-                                <!-- Form content here -->
                             </div> <!-- end of class="row" Reshti dyte -->
                         </div> <!-- end of class="card-body" -->
-
-                    
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-@cssClass">@SharedLocalizer["Submit"]</button>
                             </div>
-                       
                     </form>
                 </div> <!-- /.card -->
             </div> <!-- /.id="left-side-bar" -->
