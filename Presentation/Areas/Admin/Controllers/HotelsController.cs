@@ -33,7 +33,6 @@ namespace Presentation.Areas.Admin.Controllers
             return View(new HotelViewModel());
         }
 
-
         [HttpPost]
         public async Task<IActionResult> AddOrEditHotel(HotelViewModel hotelViewModel)
         {
@@ -75,8 +74,6 @@ namespace Presentation.Areas.Admin.Controllers
             }
             return View(hotelViewModel.Id == 0 ? "AddHotel" : "EditHotel", hotelViewModel);
         }
-
-
 
         [HttpGet]
         public IActionResult GetHotelsJson()

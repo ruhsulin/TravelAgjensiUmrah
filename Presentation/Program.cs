@@ -34,6 +34,7 @@ builder.Services.AddTransient<IFileHelper, FileHelper>();
 builder.Services.AddTransient<IThumbnailService, ThumbnailService>();
 builder.Services.AddTransient<IHotelRepository, HotelRepository>();
 builder.Services.AddTransient<IActivityRepository, ActivityRepository>();
+builder.Services.AddTransient<IRoomTypeRepository, RoomTypeRepository>();
 
 
 builder.Services.Configure<IdentityOptions>(options =>
