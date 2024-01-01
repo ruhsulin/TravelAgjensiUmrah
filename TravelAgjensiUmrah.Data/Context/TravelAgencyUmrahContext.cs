@@ -22,9 +22,9 @@ namespace TravelAgjensiUmrah.Data.Context
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; } = null!;
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; } = null!;
         public virtual DbSet<Hotel> Hotels { get; set; } = null!;
+        public virtual DbSet<Package> Packages { get; set; } = null!;
         public virtual DbSet<RoomType> RoomTypes { get; set; } = null!;
         public virtual DbSet<UserPicture> UserPictures { get; set; } = null!;
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -70,6 +70,19 @@ namespace TravelAgjensiUmrah.Data.Context
             modelBuilder.Entity<AspNetUserToken>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+            });
+
+            modelBuilder.Entity<Package>(entity =>
+            {
+                entity.HasOne(d => d.HotelInMeccaNavigation)
+                    .WithMany(p => p.PackageHotelInMeccaNavigations)
+                    .HasForeignKey(d => d.HotelInMecca)
+                    .HasConstraintName("FK__Packages__HotelI__236943A5");
+
+                entity.HasOne(d => d.HotelInMedinaNavigation)
+                    .WithMany(p => p.PackageHotelInMedinaNavigations)
+                    .HasForeignKey(d => d.HotelInMedina)
+                    .HasConstraintName("FK__Packages__HotelI__245D67DE");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -14,7 +14,7 @@ namespace Presentation.Areas.Admin.Controllers
         private readonly IHotelRepository _hotelRepository;
         private readonly IFileHelper _fileHelper;
 
-
+        // Constructor
         public HotelsController(IHotelRepository hotelRepository, IFileHelper fileHelper)
         {
             _hotelRepository = hotelRepository;
@@ -59,6 +59,9 @@ namespace Presentation.Areas.Admin.Controllers
                 hotel.Stars = hotelViewModel.Stars;
                 hotel.Location = hotelViewModel.Location;
                 hotel.Description = hotelViewModel.Description;
+                hotel.RoomFor2 = hotelViewModel.RoomFor2;
+                hotel.RoomFor3 = hotelViewModel.RoomFor3;
+                hotel.RoomFor4 = hotelViewModel.RoomFor4;
 
                 if (hotelViewModel.Id == 0)
                 {
@@ -87,7 +90,10 @@ namespace Presentation.Areas.Admin.Controllers
                     name = x.HotelName,
                     stars = x.Stars,
                     location = x.Location,
-                    description = x.Description
+                    description = x.Description,
+                    roomFor2 = x.RoomFor2,
+                    roomFor3 = x.RoomFor3,
+                    roomFor4 = x.RoomFor4
 
                 });
 
@@ -102,7 +108,7 @@ namespace Presentation.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Hotel hotel = _hotelRepository.GetHotelById(id); // Assuming GetById method exists in your repository
+            Hotel hotel = _hotelRepository.GetHotelById(id);
             if (hotel != null)
             {
                 var model = new HotelViewModel
@@ -111,13 +117,12 @@ namespace Presentation.Areas.Admin.Controllers
                     Name = hotel.HotelName,
                     Stars = hotel.Stars,
                     Location = hotel.Location,
-                    Description = hotel.Description
-                    // Handle HotelPicture if needed. Typically, for editing, you might show the existing picture and provide an option to change it.
+                    Description = hotel.Description,
+                    RoomFor2 = hotel.RoomFor2,
+                    RoomFor3 = hotel.RoomFor3,
+                    RoomFor4 = hotel.RoomFor4
                 };
-
-                // If you have additional data to load (like select lists), load them here
-
-                return View("AddHotel", model); // Reuse the AddHotel view if it's set up to handle both add and edit scenarios
+                return View("AddHotel", model);
             }
 
             return RedirectToAction("Index");
@@ -128,11 +133,11 @@ namespace Presentation.Areas.Admin.Controllers
         {
             try
             {
-                var hotel = _hotelRepository.GetById(id); // Synchronous call
+                var hotel = _hotelRepository.GetById(id);
                 if (hotel != null)
                 {
                     _hotelRepository.Delete(hotel);
-                    _hotelRepository.SaveChanges(); // Synchronous call
+                    _hotelRepository.SaveChanges();
                     return Ok(true);
                 }
                 return NotFound();

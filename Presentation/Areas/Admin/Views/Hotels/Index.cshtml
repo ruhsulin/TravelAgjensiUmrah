@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Hotels";
+    ViewData["Title"] = @SharedLocalizer["Hotels"];
 }
 
 @section Styles{
@@ -20,9 +20,9 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Hotels</a></li>
-                    <li class="breadcrumb-item active">Index</li>
+                    <li class="breadcrumb-item"><a href="#">@SharedLocalizer["Home"]</a></li>
+                    <li class="breadcrumb-item"><a href="#">@SharedLocalizer["Hotels"]</a></li>
+                    <li class="breadcrumb-item active">@SharedLocalizer["Index"]</li>
                 </ol>
             </div>
         </div>
@@ -96,11 +96,29 @@
                     url: url,
                     dataSrc: ""
                 },
+                language: {
+                    "sEmptyTable": '@SharedLocalizer["NoDataAvailableInTable"]',
+                    "sInfo": '@SharedLocalizer["Showing"] _START_ @SharedLocalizer["to"] _END_ @SharedLocalizer["of"] _TOTAL_ @SharedLocalizer["entries"]',
+                    // Other localization keys...
+                    "columns": {
+                        "name": '@SharedLocalizer["Name"]',
+                        "stars": '@SharedLocalizer["Stars"]',
+                        "location": '@SharedLocalizer["Location"]',
+                        "description": '@SharedLocalizer["Description"]',
+                        "roomFor2": '@SharedLocalizer["RoomFor2"]',
+                        "roomFor3": '@SharedLocalizer["RoomFor3"]',
+                        "roomFor4": '@SharedLocalizer["RoomFor4"]'
+                    }
+                },
                 columns: [
-                    {data: "id", title: "Id", width: "4%"},
-                    { data: "name", title: "Name" },
-                    { data: "stars", title: "Stars" },
-                    { data: "location", title: "City" },
+                   // { data: "id", title: '@SharedLocalizer["Id"]', width: "4%" },
+                    { data: "name", title: '@SharedLocalizer["Name"]' },
+                    { data: "stars", title: '@SharedLocalizer["Stars"]' },
+                    { data: "location", title: '@SharedLocalizer["Location"]' },
+                    { data: "roomFor2", title: '@SharedLocalizer["RoomFor2"]', sClass: "text-right"},
+                    { data: "roomFor3", title: '@SharedLocalizer["RoomFor3"]', sClass: "text-right"},
+                    { data: "roomFor4", title: '@SharedLocalizer["RoomFor4"]', sClass: "text-right"},
+
                     {
                         data: null, title: "@SharedLocalizer["Actions"]",
                         sClass: "text-center",
@@ -133,7 +151,7 @@
 
             $.confirm({
                 title: '<i class="fa fa-warning"></i> Please Confirm',
-                content: 'Are you sure you want to delete this hotel?!',
+                content: '@SharedLocalizer["AreYouSureYouWantToDeleteThisHotel"]',
 
                 type: 'red',
                 closeIcon: true,

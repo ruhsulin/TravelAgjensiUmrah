@@ -41,9 +41,10 @@
                     <form id="HotelForm" asp-action="AddOrEditHotel" asp-controller="Hotels" asp-area="Admin" method="post" enctype="multipart/form-data">
                         <input type="hidden" asp-for="Id" />
                         <div class="card-body">
+                            <!-- Rreshti Pare: Name - Location-->
                             <div class="row">
-                               
-                                    <div class="col-sm-6">
+                                <!-- Name -->
+                                    <div class="col-sm-6">       
                                         <div class="form-group">
                                             <label>@SharedLocalizer["Name"] *</label>
                                             <div class="input-group">
@@ -60,23 +61,18 @@
                                         <label>City</label>
                                         <select asp-for="Location" class="form-control select2" style="width: 100%;">
                                             <option selected="selected">Meke</option>
-                                            <option>Medina</option>
-                                                       
+                                            <option>Medina</option>            
                                         </select>
                                     </div>
                                     </div>
-                             
-                                <!-- Form content here -->
-                            </div> <!-- end of class="row" -->
+                            </div> <!-- end rreshti pare -->
 
-                            <!-- Rreshti dyte -->
+                            <!-- Rreshti dyte Yjet & Description-->
                             <div class="row">
-
-                                <!-- Picture-->
+                                <!-- Description -->
                                 <div class="col-sm-6">
-                                    <!-- textarea -->
                                     <div class="form-group">
-                                        <label>Textarea</label>
+                                        <label>Description</label>
                                         <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                                     </div>
                                 </div>
@@ -87,7 +83,6 @@
                                         <label>Stars</label>
                                         <select asp-for="Stars" class="form-control select2" style="width: 100%;">
                                             <option selected="selected">1</option>
-                                           
                                             <option>2</option>
                                             <option>3</option>
                                             <option>4</option>
@@ -95,17 +90,55 @@
                                         </select>
                                     </div>
                                 </div>
+                            </div> <!-- end of Reshti dyte -->
 
-                                <!-- Form content here -->
-                            </div> <!-- end of class="row" Reshti dyte -->
-                        </div> <!-- end of class="card-body" -->
+                        <!-- Rreshti Trete: RoomFor2 - RoomFor3 - RoomFor4 -->
+                        <div class="row">
+                           <!-- RoomFor2 -->
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>@SharedLocalizer["RoomFor2"] *</label>
+                                <div class="input-group">
+                                    <input type="text" asp-for="RoomFor2" class="form-control help-sidebar" data-title="roomFor2" data-description="Enter price..." placeholder="Enter price...">
+                                    <div class="input-group-append ">
+                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RoomFor3 -->
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>@SharedLocalizer["RoomFor3"] *</label>
+                                    <div class="input-group">
+                                        <input type="text" asp-for="RoomFor3" class="form-control help-sidebar" data-title="roomFor3" data-description="Enter price..." placeholder="Enter price...">
+                                        <div class="input-group-append ">
+                                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Room for 4-->
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>@SharedLocalizer["RoomFor4"] *</label>
+                                    <div class="input-group">
+                                        <input type="text" asp-for="RoomFor4" class="form-control help-sidebar" data-title="roomFor4" data-description="Enter price..." placeholder="Enter price...">
+                                        <div class="input-group-append ">
+                                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </div> <!-- end rreshti pare -->
+              </div> <!-- end of class="card-body" -->
 
                     
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-@cssClass">@SharedLocalizer["Submit"]</button>
-                            </div>
+                   <div class="card-footer">
+                       <button type="submit" class="btn btn-@cssClass">@SharedLocalizer["Submit"]</button>
+                   </div>
                        
-                    </form>
+                </form>
                 </div> <!-- /.card -->
             </div> <!-- /.id="left-side-bar" -->
         </div> <!-- end of row -->

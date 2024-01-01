@@ -13,12 +13,12 @@ namespace TravelAgjensiUmrah.App.Impementations
             _travelAgencyUmrahContext = travelAgencyUmrahContext;
         }
 
-
         public Hotel GetHotelById(int id)
         {
 
             return _travelAgencyUmrahContext.Hotels.FirstOrDefault(x => x.Id == id);
         }
+
         public List<Hotel> GetAllHotels()
         {
             return _travelAgencyUmrahContext.Hotels.ToList();
@@ -28,21 +28,16 @@ namespace TravelAgjensiUmrah.App.Impementations
         {
             _travelAgencyUmrahContext.Hotels.Add(hotel);
         }
+
         public void Update(Hotel hotel)
         {
             _travelAgencyUmrahContext.Hotels.Update(hotel);
         }
 
-
         public void Delete(Hotel hotel)
         {
             _travelAgencyUmrahContext.Hotels.Remove(hotel);
         }
-
-
-
-
-
 
     }
 }

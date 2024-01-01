@@ -120,17 +120,41 @@
   <data name="Actions" xml:space="preserve">
     <value>Veprimet</value>
   </data>
+  <data name="Activities" xml:space="preserve">
+    <value>Aktivitetet</value>
+  </data>
+  <data name="ActivityList" xml:space="preserve">
+    <value>Lista Aktiviteteve</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Shto</value>
   </data>
+  <data name="AddNewActivity" xml:space="preserve">
+    <value>Shto Aktivitet</value>
+  </data>
+  <data name="AddNewHotel" xml:space="preserve">
+    <value>Shto Hotel</value>
+  </data>
   <data name="AddNewUser" xml:space="preserve">
     <value>Shto përdorues</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteThisHotel" xml:space="preserve">
+    <value>A jeni i sigurt që dëshironi ta fshini këtë hotel?</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Kapaciteti</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>Qyteti</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Konfirmo Fjalëkalimin</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Fshij</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Përshkrimi</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Detajet</value>
@@ -153,6 +177,12 @@
   <data name="Home" xml:space="preserve">
     <value>Ballina</value>
   </data>
+  <data name="Hotels" xml:space="preserve">
+    <value>Hotelet</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Vendndodhja</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Emri</value>
   </data>
@@ -171,11 +201,20 @@
   <data name="Role" xml:space="preserve">
     <value>Roli</value>
   </data>
+  <data name="RoomTypes" xml:space="preserve">
+    <value>Llojet e Dhomës</value>
+  </data>
+  <data name="RoomTypesList" xml:space="preserve">
+    <value>Lista e Llojeve të Dhomave</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Kërko</value>
   </data>
   <data name="SelectRole" xml:space="preserve">
     <value>Zgjidh Rolin</value>
+  </data>
+  <data name="Stars" xml:space="preserve">
+    <value>Yjet</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Dërgo</value>

@@ -120,17 +120,44 @@
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
+  <data name="Activities" xml:space="preserve">
+    <value>Activities</value>
+  </data>
+  <data name="ActivityList" xml:space="preserve">
+    <value>Activity List</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AddNewActivity" xml:space="preserve">
+    <value>Add New Activity</value>
+  </data>
+  <data name="AddNewHotel" xml:space="preserve">
+    <value>Add New Hotel</value>
+  </data>
+  <data name="AddNewRoomType" xml:space="preserve">
+    <value>Add New Room Type</value>
+  </data>
   <data name="AddNewUser" xml:space="preserve">
     <value>Add New User</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteThisHotel" xml:space="preserve">
+    <value>Are you sure you want to delete this hotel?</value>
+  </data>
+  <data name="Capacity" xml:space="preserve">
+    <value>Capacity</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm Password</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="Details" xml:space="preserve">
     <value>Details</value>
@@ -153,6 +180,12 @@
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Hotels" xml:space="preserve">
+    <value>Hotels</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -171,11 +204,20 @@
   <data name="Role" xml:space="preserve">
     <value>Role</value>
   </data>
+  <data name="RoomTypes" xml:space="preserve">
+    <value>Room Types</value>
+  </data>
+  <data name="RoomTypesList" xml:space="preserve">
+    <value>RoomTypes List</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
   <data name="SelectRole" xml:space="preserve">
     <value>Select Role</value>
+  </data>
+  <data name="Stars" xml:space="preserve">
+    <value>Stars</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>

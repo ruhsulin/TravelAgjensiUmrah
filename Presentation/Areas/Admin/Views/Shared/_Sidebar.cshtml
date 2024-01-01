@@ -43,7 +43,7 @@
                     <a asp-area ="Admin" asp-controller="Home" asp-action="Index" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard
+                            @SharedLocalizer["Dashboard"]
                         </p>
                     </a>
                 </li>
@@ -53,7 +53,7 @@
                 <li class="nav-item">
                     <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
-                        <p> Users </p>
+                        <p> @SharedLocalizer["Users"] </p>
                     </a>
                   
                 </li>
@@ -63,7 +63,7 @@
                 <li class="nav-item">
                     <a asp-area="Admin" asp-controller="Packages" asp-action="Index" class="nav-link">
                         <i class="nav-icon fas fa-box"></i>
-                        <p> Packages </p>
+                        <p> @SharedLocalizer["Packages"] </p>
                     </a>
                 </li>
                 <!-- End of Packages-->
@@ -71,8 +71,8 @@
                 <!-- Hotels -->
                 <li class="nav-item">
                     <a asp-area="Admin" asp-controller="Hotels" asp-action="Index" class="nav-link">
-                        <i class="nav-icon fas fa-box"></i>
-                        <p> Hotels </p>
+                        <i class="nav-icon fas fa-hotel"></i>
+                        <p> @SharedLocalizer["Hotels"] </p>
                     </a>
                 </li>
                 <!-- End of Hotels-->
@@ -80,8 +80,8 @@
                 <!-- Activities -->
                 <li class="nav-item">
                     <a asp-area="Admin" asp-controller="Activities" asp-action="Index" class="nav-link">
-                        <i class="nav-icon fas fa-box"></i>
-                        <p> Activities </p>
+                        <i class="nav-icon fas fa-chess"></i>   
+                        <p> @SharedLocalizer["Activities"] </p>
                     </a>
                 </li>
                 <!-- End of Activities-->
@@ -89,53 +89,11 @@
                 <!-- RoomTypes -->
                 <li class="nav-item">
                     <a asp-area="Admin" asp-controller="RoomTypes" asp-action="Index" class="nav-link">
-                        <i class="nav-icon fas fa-box"></i>
-                        <p> RoomTypes </p>
+                        <i class="nav-icon fas fa-bed"></i>
+                        <p> @SharedLocalizer["RoomTypes"] </p>
                     </a>
                 </li>
                 <!-- End of Roomtypes-->
-
-
-                <!-- Packages -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-boxes-stacked"></i>
-                        <p>
-                            Packages
-                            <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">6</span>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p> Read User</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p> Add User</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/boxed.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Update User</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p> Delete User</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- End of Packages-->
-
-
                 <li class="nav-header">EXAMPLES</li>
                 <li class="nav-item">
                     <a href="pages/calendar.html" class="nav-link">

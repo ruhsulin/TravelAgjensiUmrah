@@ -8,5 +8,8 @@
         public IFormFile? HotelPicture { get; set; }
         public string? Location { get; set; }
         public string? Description { get; set; }
+        public decimal RoomFor2 { get; set; }
+        public decimal RoomFor3 { get; set; }
+        public decimal RoomFor4 { get; set; }
     }
 }
