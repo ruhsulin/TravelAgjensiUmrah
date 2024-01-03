@@ -9,8 +9,8 @@ namespace Presentation.Entities
     public partial class RoomType
     {
         [Key]
-        [Column("RoomTypeID")]
-        public int RoomTypeId { get; set; }
+        [Column("id")]
+        public int Id { get; set; }
         [Column("RoomType")]
         [StringLength(50)]
         public string? RoomType1 { get; set; }

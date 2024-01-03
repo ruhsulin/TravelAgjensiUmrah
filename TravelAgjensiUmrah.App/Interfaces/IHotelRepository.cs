@@ -8,6 +8,8 @@ namespace TravelAgjensiUmrah.App.Interfaces
         List<Hotel> GetAllHotels();
         void Insert(Hotel hotel);
         void Delete(Hotel hotel);
+        List<Hotel> GetHotelsByLocation(string location);
+
 
     }
 }

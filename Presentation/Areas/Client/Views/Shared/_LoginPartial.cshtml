@@ -5,11 +5,15 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @User.Identity.Name!</a>
+        var userId = UserManager.GetUserId(User);
+        var user = await UserManager.FindByIdAsync(userId);
+        var userName = user.Name;
+
+        <li class="nav-item">
+        <a  class="nav-link text-dark" asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @userName!</a>
     </li>
     <li class="nav-item">
-        <form  class="form-inline" asp-controller="Account" asp-action="Logout" method="post" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <form  class="form-inline" asp-controller="Account" asp-action="Logout" method="post" asp-route-returnUrl="@Url.Action("Login", "Account", new { area = "Client" })">
             <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
         </form>
     </li>

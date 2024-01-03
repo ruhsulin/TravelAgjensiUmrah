@@ -28,10 +28,10 @@ namespace TravelAgjensiUmrah.App.Impementations
             _travelAgencyUmrahContext.Packages.Add(package);
         }
 
-        public void Update(Package package)
-        {
-            _travelAgencyUmrahContext.Packages.Update(package);
-        }
+        //public void Update(Package package)
+        //{
+        //   _travelAgencyUmrahContext.Packages.Update(package);
+        // }
 
         public void Delete(Package package)
         {

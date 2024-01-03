@@ -1,5 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace TravelAgjensiUmrah.Data.Entities
 {
@@ -11,6 +14,6 @@ namespace TravelAgjensiUmrah.Data.Entities
         [Column("RoomType")]
         [StringLength(50)]
         public string? RoomType1 { get; set; }
-        public int Capacity { get; set; }
+        public int? Capacity { get; set; }
     }
 }

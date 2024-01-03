@@ -270,7 +270,7 @@ namespace Presentation.Areas.Client
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(AccountController.Login), "AuthLayout");
+            return RedirectToAction("Login", "Account", new { area = "Client" });
         }
 
         [HttpPost]

@@ -39,5 +39,12 @@ namespace TravelAgjensiUmrah.App.Impementations
             _travelAgencyUmrahContext.Hotels.Remove(hotel);
         }
 
+        public List<Hotel> GetHotelsByLocation(string location)
+        {
+            return _travelAgencyUmrahContext.Hotels
+           .Where(h => h.Location == location)
+           .ToList();
+        }
+
     }
 }

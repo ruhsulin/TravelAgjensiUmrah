@@ -77,12 +77,12 @@ namespace TravelAgjensiUmrah.Data.Context
                 entity.HasOne(d => d.HotelInMeccaNavigation)
                     .WithMany(p => p.PackageHotelInMeccaNavigations)
                     .HasForeignKey(d => d.HotelInMecca)
-                    .HasConstraintName("FK__Packages__HotelI__236943A5");
+                    .HasConstraintName("FK__Packages__hotelI__2B0A656D");
 
                 entity.HasOne(d => d.HotelInMedinaNavigation)
                     .WithMany(p => p.PackageHotelInMedinaNavigations)
                     .HasForeignKey(d => d.HotelInMedina)
-                    .HasConstraintName("FK__Packages__HotelI__245D67DE");
+                    .HasConstraintName("FK__Packages__hotelI__2BFE89A6");
             });
 
             OnModelCreatingPartial(modelBuilder);

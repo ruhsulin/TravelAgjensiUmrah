@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Presentation.Areas.Admin.Models.HotelViewModels;
 using Presentation.FileHelper;
 using TravelAgjensiUmrah.App.Constants;
@@ -30,7 +31,11 @@ namespace Presentation.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddHotel()
         {
-            return View(new HotelViewModel());
+            var model = new HotelViewModel
+            {
+                Locations = new SelectList(new List<string> { HotelNamesConstants.Makah, HotelNamesConstants.Medina })
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -116,11 +121,13 @@ namespace Presentation.Areas.Admin.Controllers
                     Id = hotel.Id,
                     Name = hotel.HotelName,
                     Stars = hotel.Stars,
-                    Location = hotel.Location,
                     Description = hotel.Description,
                     RoomFor2 = hotel.RoomFor2,
                     RoomFor3 = hotel.RoomFor3,
-                    RoomFor4 = hotel.RoomFor4
+                    RoomFor4 = hotel.RoomFor4,
+                    Location = hotel.Location,
+                    Locations = new SelectList(new List<string> { HotelNamesConstants.Makah, HotelNamesConstants.Medina })
+
                 };
                 return View("AddHotel", model);
             }

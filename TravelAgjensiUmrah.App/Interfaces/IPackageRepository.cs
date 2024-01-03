@@ -7,6 +7,6 @@ namespace TravelAgjensiUmrah.App.Interfaces
         Package GetPackageById(int id);
         List<Package> GetAllPackages();
         void Insert(Package package);
-        void Update(Package package);
+        void Delete(Package package);
     }
 }

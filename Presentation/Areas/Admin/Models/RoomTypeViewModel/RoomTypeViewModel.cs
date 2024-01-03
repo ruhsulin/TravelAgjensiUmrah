@@ -5,6 +5,6 @@
 
         public int Id { get; set; }
         public string? RoomType1 { get; set; }
-        public int Capacity { get; set; }
+        public int? Capacity { get; set; }
     }
 }

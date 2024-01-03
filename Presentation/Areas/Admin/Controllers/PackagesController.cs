@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Presentation.Areas.Admin.Models.PackageViewModel;
 using Presentation.FileHelper;
 using TravelAgjensiUmrah.App.Constants;
@@ -11,13 +12,15 @@ namespace Presentation.Areas.Admin.Controllers
     public class PackagesController : Controller
     {
         private readonly IPackageRepository _packageRepository;
+        private readonly IHotelRepository _hotelRepository;
         private readonly IFileHelper _fileHelper;
 
         //Constructor
-        public PackagesController(IFileHelper fileHelper, IPackageRepository packageRepository)
+        public PackagesController(IFileHelper fileHelper, IPackageRepository packageRepository, IHotelRepository hotelRepository)
         {
             _fileHelper = fileHelper;
             _packageRepository = packageRepository;
+            _hotelRepository = hotelRepository;
         }
 
         [HttpGet]
@@ -29,47 +32,64 @@ namespace Presentation.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddPackage()
         {
-            return View(new PackageViewModel());
+            var mekeHotels = _hotelRepository.GetHotelsByLocation("Meke")
+       .Select(h => new SelectListItem { Value = h.Id.ToString(), Text = h.HotelName })
+       .ToList();
+
+            var medinaHotels = _hotelRepository.GetHotelsByLocation("Medina")
+                .Select(h => new SelectListItem { Value = h.Id.ToString(), Text = h.HotelName })
+                .ToList();
+
+            var model = new PackageViewModel
+            {
+                MekeHotels = new SelectList(mekeHotels, "Value", "Text"),
+                MedinaHotels = new SelectList(medinaHotels, "Value", "Text")
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddOrEditPackage(PackageViewModel packageViewModel)
+        public IActionResult AddOrEditPackage(PackageViewModel packageViewModel)
         {
             if (ModelState.IsValid)
             {
-                Package package;
-                if (packageViewModel.Id == 0)
+                Package package = packageViewModel.Id == 0 ? new Package() : _packageRepository.GetPackageById(packageViewModel.Id);
+                if (package == null && packageViewModel.Id != 0)
                 {
-                    // Create new hotel
-                    package = new Package();
-                }
-                else
-                {
-                    // Update existing hotel
-                    package = _packageRepository.GetPackageById(packageViewModel.Id);
-                    if (package == null)
-                    {
-                        return NotFound();
-                    }
+                    return NotFound();
                 }
 
-                // Map properties
+                // Map properties from PackageViewModel to Package
                 package.PackageName = packageViewModel.PackageName;
                 package.Pax = packageViewModel.Pax;
-                package.TicketPrice = packageViewModel.TicketPrice;
-                package.VisaPrice = packageViewModel.VisaPrice;
-                package.InsurancePrice = packageViewModel.Insurance;
                 package.HotelInMecca = packageViewModel.HotelInMeka;
                 package.HotelInMedina = packageViewModel.HotelInMedina;
-                package.FoodPrice = packageViewModel.FoodPrice;
-                package.TransportToAirport = packageViewModel.TransportationToAirport;
-                package.TransportationToAirportPrice = packageViewModel.TransportationToAirportPrice;
-                package.TransportationInArabiaPrice = packageViewModel.TransportationInArabiaPrice;
-                package.IhramPrice = packageViewModel.IhramPrice;
-                package.ZemzemPrice = packageViewModel.ZemzemPrice;
                 package.RoomType = packageViewModel.RoomType;
+                package.DaysInMecca = packageViewModel.DaysInMecca;
+                package.DaysInMedina = packageViewModel.DaysInMedina;
+                package.StartDay = packageViewModel.StartDay;
+                package.ReturnDay = packageViewModel.ReturnDay;
+                package.StartTime = packageViewModel.StartTime;
+                package.MealIncluded = packageViewModel.FoodIncluded;
+                package.MealPrice = packageViewModel.FoodPrice ?? 0;
+                package.TicketIncluded = packageViewModel.TicketIncluded;
+                package.TicketPrice = packageViewModel.TicketPrice ?? 0;
+                package.VisaIncluded = packageViewModel.VisaIncluded;
+                package.VisaPrice = packageViewModel.VisaPrice ?? 0;
+                package.IhramIncluded = packageViewModel.IhramIncluded;
+                package.IhramPrice = packageViewModel.IhramPrice ?? 0;
+                package.ZemzemIncluded = packageViewModel.ZemZemIncluded;
+                package.ZemzemPrice = packageViewModel.ZemzemPrice ?? 0;
+                package.GuideGuy = packageViewModel.GuideGuyName;
+                package.TransportToAirportIncluded = packageViewModel.TransportationToAirportIncluded;
+                package.TransportToAirportPrice = packageViewModel.TransportationToAirportPrice ?? 0;
+                package.TransportInArabiaPrice = packageViewModel.TransportationInArabiaPrice ?? 0;
+                package.PackagePrice = packageViewModel.PackagePrice;
+                package.Description = packageViewModel.Description;
+                package.Service = packageViewModel.Service ?? 0;
 
-
+                // Save or Update Package
                 if (packageViewModel.Id == 0)
                 {
                     _packageRepository.Insert(package);
@@ -82,9 +102,10 @@ namespace Presentation.Areas.Admin.Controllers
 
                 return RedirectToAction("Index");
             }
+
+            // Handle the case when the model state is not valid
             return View(packageViewModel.Id == 0 ? "AddPackage" : "EditPackage", packageViewModel);
         }
-
         [HttpGet]
         public IActionResult GetPackagesJson()
         {
@@ -98,16 +119,7 @@ namespace Presentation.Areas.Admin.Controllers
                     pax = x.Pax,
                     ticket = x.TicketPrice,
                     visa = x.VisaPrice,
-                    insurance = x.InsurancePrice,
-                    hotelMeke = x.HotelInMecca,
-                    hotelMedine = x.HotelInMedina,
-                    food = x.FoodPrice,
-                    transToAirport = x.TransportToAirport,
-                    transAirportPrice = x.TransportationToAirportPrice,
-                    transArabia = x.TransportationInArabiaPrice,
-                    ihram = x.IhramPrice,
-                    zemzem = x.ZemzemPrice,
-                    roomType = x.RoomType
+
                 });
 
                 return new JsonResult(result);
@@ -130,7 +142,17 @@ namespace Presentation.Areas.Admin.Controllers
                     PackageName = package.PackageName,
                     Pax = package.Pax,
                     TicketPrice = package.TicketPrice,
-
+                    VisaPrice = package.VisaPrice,
+                    //     Insurance = package.InsurancePrice,
+                    HotelInMeka = package.HotelInMecca,
+                    HotelInMedina = package.HotelInMedina,
+                    //   FoodPrice = package.FoodPrice,
+                    // TransportationToAirport = package.TransportToAirport,
+                    //TransportationToAirportPrice = package.TransportationToAirportPrice,
+                    //TransportationInArabiaPrice = package.TransportationInArabiaPrice,
+                    IhramPrice = package.IhramPrice,
+                    ZemzemPrice = package.ZemzemPrice,
+                    RoomType = package.RoomType
                 };
                 return View("AddPackage", model);
             }
@@ -139,15 +161,15 @@ namespace Presentation.Areas.Admin.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteHotelAsync(int id)
+        public async Task<IActionResult> DeletePackageAsync(int id)
         {
             try
             {
-                var hotel = _hotelRepository.GetById(id);
-                if (hotel != null)
+                var package = _packageRepository.GetById(id);
+                if (package != null)
                 {
-                    _hotelRepository.Delete(hotel);
-                    _hotelRepository.SaveChanges();
+                    _packageRepository.Delete(package);
+                    _packageRepository.SaveChanges();
                     return Ok(true);
                 }
                 return NotFound();

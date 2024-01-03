@@ -9,13 +9,12 @@ namespace Presentation.Entities
     public partial class Activity
     {
         [Key]
-        [Column("ActivityID")]
-        public int ActivityId { get; set; }
+        public int Id { get; set; }
         [StringLength(100)]
         public string? ActivityName { get; set; }
         [StringLength(255)]
-        public string? Description { get; set; }
+        public string? ActDescription { get; set; }
         [StringLength(100)]
-        public string? Location { get; set; }
+        public string? ActLocation { get; set; }
     }
 }

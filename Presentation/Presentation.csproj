@@ -108,6 +108,21 @@
     <None Include="wwwroot\theme\plugins\fileinput\themes\fa6\theme.min.js" />
     <None Include="wwwroot\theme\plugins\fileinput\themes\gly\theme.js" />
     <None Include="wwwroot\theme\plugins\fileinput\themes\gly\theme.min.js" />
+    <None Include="wwwroot\ui\js\main.js" />
+    <None Include="wwwroot\ui\lib\easing\easing.js" />
+    <None Include="wwwroot\ui\lib\easing\easing.min.js" />
+    <None Include="wwwroot\ui\lib\owlcarousel\LICENSE" />
+    <None Include="wwwroot\ui\lib\owlcarousel\owl.carousel.js" />
+    <None Include="wwwroot\ui\lib\owlcarousel\owl.carousel.min.js" />
+    <None Include="wwwroot\ui\lib\tempusdominus\js\moment-timezone.min.js" />
+    <None Include="wwwroot\ui\lib\tempusdominus\js\moment.min.js" />
+    <None Include="wwwroot\ui\lib\tempusdominus\js\tempusdominus-bootstrap-4.js" />
+    <None Include="wwwroot\ui\lib\tempusdominus\js\tempusdominus-bootstrap-4.min.js" />
+    <None Include="wwwroot\ui\lib\ui\js\main.js" />
+    <None Include="wwwroot\ui\lib\waypoints\links.php" />
+    <None Include="wwwroot\ui\lib\waypoints\waypoints.min.js" />
+    <None Include="wwwroot\ui\lib\wow\wow.js" />
+    <None Include="wwwroot\ui\lib\wow\wow.min.js" />
   </ItemGroup>
 
   <ItemGroup>

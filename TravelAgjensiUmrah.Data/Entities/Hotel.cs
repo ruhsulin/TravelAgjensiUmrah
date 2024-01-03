@@ -1,5 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace TravelAgjensiUmrah.Data.Entities
 {
@@ -17,16 +20,16 @@ namespace TravelAgjensiUmrah.Data.Entities
         public string? HotelName { get; set; }
         [StringLength(100)]
         public string? Location { get; set; }
-        public int Stars { get; set; }
+        public int? Stars { get; set; }
         [StringLength(255)]
         public string? Description { get; set; }
         public string? Photo { get; set; }
         [Column(TypeName = "decimal(10, 2)")]
-        public decimal RoomFor2 { get; set; }
+        public decimal? RoomFor2 { get; set; }
         [Column(TypeName = "decimal(10, 2)")]
-        public decimal RoomFor3 { get; set; }
+        public decimal? RoomFor3 { get; set; }
         [Column(TypeName = "decimal(10, 2)")]
-        public decimal RoomFor4 { get; set; }
+        public decimal? RoomFor4 { get; set; }
 
         [InverseProperty("HotelInMeccaNavigation")]
         public virtual ICollection<Package> PackageHotelInMeccaNavigations { get; set; }

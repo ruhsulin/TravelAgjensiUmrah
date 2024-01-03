@@ -59,9 +59,7 @@
                                     <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>City</label>
-                                        <select asp-for="Location" class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Meke</option>
-                                            <option>Medina</option>            
+                                        <select asp-for="Location" asp-items="Model.Locations" class="form-control select2" style="width: 100%;">
                                         </select>
                                     </div>
                                     </div>

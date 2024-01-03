@@ -146,6 +146,16 @@ namespace TravelAgjensiUmrah.App.Impementations
         public string GetProfilePicture(bool thumbnail)
         {
             throw new NotImplementedException();
+            //if (CurrentUser != null && CurrentUser.PictureId.HasValue)
+            //{
+            //    var picture = _userRepository.GetUserPicture(CurrentUser.PictureId.Value);
+            //    if (picture != null)
+            //    {
+            //        return picture.Path;  // Assuming Path stores the URL of the picture
+            //    }
+            //}
+            //return "/path/to/default/image.jpg";  // Path to a default image if user doesn't have a picture
+
         }
     }
 }
