@@ -83,10 +83,7 @@ namespace Presentation.FileHelper
             {
                 properPath = null;
             }
-
-
             return properPath;
-
         }
         public string GetFavIconFilePath(string path)
         {
@@ -115,16 +112,12 @@ namespace Presentation.FileHelper
                 {
                     throw new Exception();
                 }
-
             }
             catch (Exception)
             {
                 properPath = null;
             }
-
-
             return properPath;
-
         }
         public void SaveFile(FileTypesEnum type, IFormFile file, string folderName, string id, params int[] thumbnails)
         {
@@ -133,19 +126,15 @@ namespace Presentation.FileHelper
             {
                 Directory.CreateDirectory(filePath);
             }
-
             (new FileInfo(filePath)).Directory.Create();
-
 
             using (var fileStream = new FileStream(Path.Combine(filePath, file.FileName), FileMode.Create))
             {
                 file.CopyTo(fileStream);
-
                 fileStream.Close();
             }
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FileName);
             var fileExtenstion = Path.GetExtension(file.FileName);
-
 
             foreach (var item in thumbnails)
             {
