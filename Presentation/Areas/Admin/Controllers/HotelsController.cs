@@ -126,7 +126,7 @@ namespace Presentation.Areas.Admin.Controllers
                     RoomFor3 = hotel.RoomFor3,
                     RoomFor4 = hotel.RoomFor4,
                     Location = hotel.Location,
-                    Locations = new SelectList(new List<string> { HotelNamesConstants.Makah, HotelNamesConstants.Medina })
+                    Locations = new SelectList(new List<string> { HotelNamesConstants.Makah!, HotelNamesConstants.Medina! })
 
                 };
                 return View("AddHotel", model);

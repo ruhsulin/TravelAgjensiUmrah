@@ -1,0 +1,160 @@
+﻿@model ReservationViewModel
+
+@section Styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- File input style-->
+    <link href="~/theme/plugins/fileinput/css/fileinput.min.css" rel="stylesheet" />
+    <!-- jQuery Confirm -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+}
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12" id="left-side-bar">
+                <div class="card ">
+                    <div class="card-header">
+                        <h3 class="card-title">Book Now</h3>
+                        <!-- Card header elements here -->
+                    </div> <!--/.card-header -->
+
+                    <form id="HotelForm" asp-action="ProcessPayment" asp-controller="Reservations" asp-area="Client" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="card-body">
+
+                            <!-- Rreshti Pare: PackageId - NumOfPeop-->
+                            <div class="row">
+                                <!-- PackageId -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["Package Name"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="PackageName" class="form-control help-sidebar" data-title="User Name" data-description="Enter name..." placeholder="Enter name..."  disabled>
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- NumberOfPeople -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["NumberOfPeople"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="NumberOfPeople" id="NumberOfPeople" class="form-control help-sidebar" data-title="User Name" data-description="Enter name..." placeholder="Enter name...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end rreshti pare -->
+
+                            <!-- Rreshti 2: BookingDate - TotalPrice-->
+                            <div class="row">
+                                <!-- BookingDate -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["BookingDate"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="BookingDate" class="form-control help-sidebar" data-title="User Name" data-description="Enter name..." placeholder="Enter name..." disabled>
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- TotalPrice -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["TotalPrice"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="TotalPrice" id="TotalPrice" class="form-control help-sidebar" data-title="User Name" data-description="Enter name..." placeholder="Enter name..." disabled>
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end rreshti 2 -->
+
+                            <!-- Rreshti 3: Additional Requests - PaymentMethod-->
+                            <div class="row">
+                                <!-- Status -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["AdditionalRequests"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="AdditionalRequests" class="form-control help-sidebar" data-title="User Name" data-description="Enter name..." placeholder="Enter name...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- PaymentMethod -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["PaymentMethod"] *</label>
+                                        <div class="input-group">
+                                            <select asp-for="PaymentMethod" class="form-control">
+                                                <option value="">-- Select Payment Method --</option>
+                                                <option value="Cash">Cash</option>
+                                                <option value="Visa">Visa</option>
+                                                <option value="Maestro">Maestro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end rreshti 3 -->
+
+
+                        </div> <!-- end of class="card-body" -->
+
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success">@SharedLocalizer["Submit"]</button>
+                        </div>
+
+                    </form>
+                </div> <!-- /.card -->
+            </div> <!-- /.id="left-side-bar" -->
+        </div> <!-- end of row -->
+    </div> <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+@section Scripts {
+    <!-- Include jQuery if it's not already included -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery-validation -->
+    <script src="~/theme/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/theme/plugins/jquery-validation/additional-methods.min.js"></script>
+
+    <!-- File Input -->
+    <script src="~/theme/plugins/fileinput/js/fileinput.min.js"></script>
+
+    <script>
+        $(function () {
+            // Assuming you have a ViewBag or ViewData that holds the base package price
+            var packagePrice = @ViewBag.PackagePrice || @ViewData["PackagePrice"] || @Model.TotalPrice; // Use the correct one
+
+            $('#NumberOfPeople').change(function () {
+                var numberOfPeople = $(this).val();
+                var totalPrice = packagePrice * numberOfPeople;
+                $('#TotalPrice').val(totalPrice.toFixed(2));
+            });
+
+            // Trigger change event on page load in case NumberOfPeople is pre-populated
+            $('#NumberOfPeople').trigger('change');
+        });
+    </script>
+}
+
+
+

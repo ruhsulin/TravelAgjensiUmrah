@@ -141,18 +141,32 @@ namespace Presentation.Areas.Admin.Controllers
                     Id = package.Id,
                     PackageName = package.PackageName,
                     Pax = package.Pax,
-                    TicketPrice = package.TicketPrice,
-                    VisaPrice = package.VisaPrice,
-                    //     Insurance = package.InsurancePrice,
+                    // Insurance = package.InsurancePrice,
                     HotelInMeka = package.HotelInMecca,
                     HotelInMedina = package.HotelInMedina,
-                    //   FoodPrice = package.FoodPrice,
-                    // TransportationToAirport = package.TransportToAirport,
-                    //TransportationToAirportPrice = package.TransportationToAirportPrice,
-                    //TransportationInArabiaPrice = package.TransportationInArabiaPrice,
+                    RoomType = package.RoomType,
+                    DaysInMecca = package.DaysInMecca,
+                    DaysInMedina = package.DaysInMedina,
+                    StartDay = package.StartDay,
+                    ReturnDay = package.ReturnDay,
+                    StartTime = package.StartTime,
+                    FoodIncluded = package.MealIncluded,
+                    FoodPrice = package.MealPrice,
+                    TicketIncluded = package.TicketIncluded,
+                    TicketPrice = package.TicketPrice,
+                    VisaIncluded = package.VisaIncluded,
+                    VisaPrice = package.VisaPrice,
+                    IhramIncluded = package.IhramIncluded,
                     IhramPrice = package.IhramPrice,
+                    ZemZemIncluded = package.ZemzemIncluded,
                     ZemzemPrice = package.ZemzemPrice,
-                    RoomType = package.RoomType
+                    GuideGuyName = package.GuideGuy,
+                    TransportationToAirportIncluded = package.TransportToAirportIncluded,
+                    TransportationToAirportPrice = package.TransportToAirportPrice ?? 0,
+                    TransportationInArabiaPrice = package.TransportInArabiaPrice,
+                    PackagePrice = package.PackagePrice,
+                    Description = package.Description,
+                    Service = package.Service ?? 0
                 };
                 return View("AddPackage", model);
             }
@@ -180,6 +194,13 @@ namespace Presentation.Areas.Admin.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
             }
         }
+
+        public IActionResult BookPackage(int id)
+        {
+            // You can pass additional data if needed, like package details
+            return RedirectToAction("CreateReservation", "Reservations", new { area = "Client", packageId = id });
+        }
+
 
     }
 }

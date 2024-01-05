@@ -8,6 +8,11 @@ namespace TravelAgjensiUmrah.Data.Entities
 {
     public partial class Package
     {
+        public Package()
+        {
+            Reservations = new HashSet<Reservation>();
+        }
+
         [Key]
         [Column("id")]
         public int Id { get; set; }
@@ -75,5 +80,7 @@ namespace TravelAgjensiUmrah.Data.Entities
         [ForeignKey("HotelInMedina")]
         [InverseProperty("PackageHotelInMedinaNavigations")]
         public virtual Hotel? HotelInMedinaNavigation { get; set; }
+        [InverseProperty("Package")]
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

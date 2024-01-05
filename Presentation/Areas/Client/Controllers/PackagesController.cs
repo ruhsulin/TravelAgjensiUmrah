@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Presentation.Areas.Client.Models;
 using TravelAgjensiUmrah.App.Constants;
 using TravelAgjensiUmrah.App.Interfaces;
 using TravelAgjensiUmrah.Data.Entities;
 
 namespace Presentation.Areas.Client.Controllers
 {
+    [Area(AreasConstants.Client)]
+
     public class PackagesController : Controller
     {
 
@@ -15,7 +18,8 @@ namespace Presentation.Areas.Client.Controllers
         {
             _packageRepository = packageRepository;
         }
-        [Area(AreasConstants.Client)]
+
+
         public IActionResult Index()
         {
             var packages = GetPackages();
@@ -26,5 +30,22 @@ namespace Presentation.Areas.Client.Controllers
         {
             return _packageRepository.GetAll().ToList();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ProcessPayment(PaymentViewModel model)
+        {
+            // Implement your payment processing and booking logic here
+            // ...
+
+            return RedirectToAction("BookingConfirmation");
+        }
+
+        public IActionResult BookPackage(int id)
+        {
+            // You can pass additional data if needed, like package details
+            return RedirectToAction("CreateReservation", "Reservations", new { packageId = id });
+        }
+
+
     }
 }

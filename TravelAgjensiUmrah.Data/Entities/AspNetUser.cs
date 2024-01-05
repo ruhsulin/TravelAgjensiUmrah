@@ -14,6 +14,7 @@ namespace TravelAgjensiUmrah.Data.Entities
             AspNetUserClaims = new HashSet<AspNetUserClaim>();
             AspNetUserLogins = new HashSet<AspNetUserLogin>();
             AspNetUserTokens = new HashSet<AspNetUserToken>();
+            Reservations = new HashSet<Reservation>();
             Roles = new HashSet<AspNetRole>();
         }
 
@@ -52,6 +53,8 @@ namespace TravelAgjensiUmrah.Data.Entities
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<AspNetUserToken> AspNetUserTokens { get; set; }
+        [InverseProperty("User")]
+        public virtual ICollection<Reservation> Reservations { get; set; }
 
         [ForeignKey("UserId")]
         [InverseProperty("Users")]
