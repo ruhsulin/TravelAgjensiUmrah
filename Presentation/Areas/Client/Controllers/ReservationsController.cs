@@ -35,6 +35,7 @@ namespace Presentation.Areas.Client.Controllers
                 NumberOfPeople = 1,
                 PackageName = package.PackageName,
                 BookingDate = DateTime.Now,
+                UserName = User.Identity!.Name,
                 TotalPrice = package.TicketPrice + package.MealPrice + package.VisaPrice + package.IhramPrice + package.ZemzemPrice + package.TransportInArabiaPrice + package.Service
             };
             return View(model);

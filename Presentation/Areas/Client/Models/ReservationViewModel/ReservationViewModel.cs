@@ -22,6 +22,7 @@ namespace Presentation.Areas.Client.Models.ReservationViewModel
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Booking Date")]
         public DateTime? BookingDate { get; set; }
 

@@ -12,6 +12,8 @@ namespace Presentation.Areas.Client
     {
         public IActionResult Index()
         {
+            ViewBag.ShowHero = true;
+
             return View();
         }
 
