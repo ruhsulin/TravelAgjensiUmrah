@@ -11,15 +11,20 @@ namespace Presentation.Areas.Client.Controllers
     {
         private readonly IPackageRepository _packageRepository;
 
+        // Konstruktori
         public ReservationsController(IPackageRepository packageRepository)
         {
             _packageRepository = packageRepository;
         }
+
+        // Index
         public IActionResult Index()
         {
             return View();
         }
 
+
+        // Create Reservation
         [HttpGet]
         public IActionResult CreateReservation(int packageId)
         {
@@ -27,21 +32,21 @@ namespace Presentation.Areas.Client.Controllers
             var model = new ReservationViewModel
             {
                 PackageId = packageId,
+                NumberOfPeople = 1,
                 PackageName = package.PackageName,
                 BookingDate = DateTime.Now,
-                TotalPrice = package.TicketPrice
+                TotalPrice = package.TicketPrice + package.MealPrice + package.VisaPrice + package.IhramPrice + package.ZemzemPrice + package.TransportInArabiaPrice + package.Service
             };
             return View(model);
         }
 
-
+        //Process Payment
         [HttpPost]
         public async Task<IActionResult> ProcessReservation(ReservationViewModel model)
         {
             if (ModelState.IsValid)
             {
-                // Convert ViewModel to Entity, handle booking logic
-                // Update package availability, save reservation data
+                model.TotalPrice = model.TotalPrice * model.NumberOfPeople;
 
                 return RedirectToAction("ReservationConfirmation"); // Or another appropriate action
             }
