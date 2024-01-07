@@ -80,10 +80,10 @@
 /*** Navbar ***/
 .navbar-light .navbar-nav .nav-link {
     font-family: 'Nunito', sans-serif;
-    position: relative;
+    position: fixed;
     margin-right: 25px;
     padding: 35px 0;
-    color: #FFFFFF !important;
+    color: black !important;
     font-size: 18px;
     font-weight: 600;
     outline: none;
@@ -111,8 +111,8 @@
 
 @media (max-width: 991.98px) {
     .sticky-top.navbar-light {
-        position: relative;
-        background: #FFFFFF;
+        position: fixed;
+        background black;
     }
 
     .navbar-light .navbar-collapse {
@@ -134,7 +134,7 @@
 
 @media (min-width: 992px) {
     .navbar-light {
-        position: absolute;
+        position: fixed;
         width: 100%;
         top: 0;
         left: 0;
@@ -144,17 +144,17 @@
     
     .sticky-top.navbar-light {
         position: fixed;
-        background: #FFFFFF;
+        background: black;
     }
 
     .navbar-light .navbar-nav .nav-link::before {
-        position: absolute;
+        position: fixed;
         content: "";
         width: 0;
         height: 2px;
         bottom: -1px;
         left: 50%;
-        background: var(--primary);
+        background: black;
         transition: .5s;
     }
 

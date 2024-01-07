@@ -21,6 +21,8 @@ namespace Presentation.Areas.Client.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.ShowNavbar = true;
+
             var packages = GetPackages();
             return View(packages);
         }

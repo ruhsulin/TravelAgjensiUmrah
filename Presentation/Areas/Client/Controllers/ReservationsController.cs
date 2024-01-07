@@ -88,6 +88,18 @@ namespace Presentation.Areas.Client.Controllers
                 _reservationRepository.AddReservation(reservation);
                 _reservationRepository.Save();
 
+                // Check if PackageId has a value before using it
+                if (model.PackageId.HasValue)
+                {
+                    var package = _packageRepository.GetPackageById(model.PackageId.Value);
+                    if (package != null && package.Pax > 0)
+                    {
+                        package.Pax -= 1; // Decrease pax by one
+                        _packageRepository.Update(package); // Update the package
+                        _packageRepository.SaveChanges(); // Save changes to the repository
+                    }
+                }
+
                 return RedirectToAction("Confirmation", new { reservationId = reservation.Id });
             }
 
