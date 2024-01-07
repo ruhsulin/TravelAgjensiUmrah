@@ -8,6 +8,7 @@
         string GetUserPhoneNumber();
         string GetUserRole();
         string GetFullName();
+        string GetJustName();
         string GetProfilePicture(bool thumbnail);
     }
 }

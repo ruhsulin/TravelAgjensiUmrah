@@ -1,0 +1,44 @@
+﻿@model ReservationViewModel
+
+
+<section class="content">
+    <div class="container">
+        <div class="row mt-5 mb-5">
+            <div class="col-md-1"></div>
+            <div class="col-md-10" id="left-side-bar">
+                <div class="card shadow">
+                    <div class="card-header bg-success">
+                        <h3 class="card-title text-white">Reservation Confirmation</h3>
+                    </div> <!--/.card-header -->
+
+                    <div class="card-body p-3">
+                        <h2>Dear <span class="text-success"> @Model.UserName</span>,</h2>
+                        <h4>Your Reservation is Confirmed <span class="text-success">Successfully!</span></h4>
+                        <p>We are delighted to inform you that your booking  @Model.PackageName has been successfully processed and confirmed.</p>
+                        <hr />
+
+                        <div>
+                            <h4> Booking Details </h4>
+                            <ul>
+                                <li>Booking Date: @Model.BookingDate!.Value.ToString("dd/MM/yyyy")</li>
+                                <li>Number of People: @Model.NumberOfPeople</li>
+                                <li>Total Price: @Model.TotalPrice</li>
+                                <!-- Add any other details in list format -->
+                            </ul>
+                        </div>
+
+                    </div> <!-- ./ of card-body-->
+                    <div class="card-footer">
+                        <div class="text-right">
+                        <a asp-controller="Packages" asp-action="Index" class="btn btn-outline-success">Explore more</a>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+
+        </div>
+    </div>
+</section>
+
+

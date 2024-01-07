@@ -24,37 +24,32 @@
                         <!-- Card header elements here -->
                     </div> <!--/.card-header -->
 
-                    <form id="HotelForm" asp-action="ProcessPayment" asp-controller="Reservations" asp-area="Client" method="post" enctype="multipart/form-data">
+
+                    <form id="HotelForm" asp-action="ProcessReservation" asp-controller="Reservations" asp-area="Client" method="post" enctype="multipart/form-data">
                         <input type="hidden" asp-for="Id" />
                         <div class="card-body p-3">
+                            <input type="hidden" asp-for="BookingDate" />
+                            <input type="hidden" asp-for="TotalPrice" />
+                            <input type="hidden" asp-for="UserName" />
+                            <input type="hidden" asp-for="PackageId" />
+                            <input type="hidden" asp-for="UserId"/>
+                            <input type="hidden" asp-for="NumberOfPeople" value="1" />
+                            <input type="hidden" asp-for="Status" value="completed" />
 
-                            <!-- Rreshti Pare: BookingDate - TotalPrice-->
-                            <div class="row mb-4"> 
-                                <!-- BookingDate -->
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>@SharedLocalizer["BookingDate"] *</label>
-                                        <div class="input-group">
-                                            <input type="text" asp-for="BookingDate" value="@Model.BookingDate.Value.ToString("dd/MM/yyyy")" class="form-control help-sidebar" data-title="User Name" data-description="Enter name..." placeholder="Enter name..." disabled>
-                                            <div class="input-group-append ">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- TotalPrice -->
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>@SharedLocalizer["TotalPrice"] *</label>
-                                        <div class="input-group">
-                                            <input type="text" asp-for="TotalPrice" id="TotalPrice" class="form-control help-sidebar" data-title="User Name" data-description="Enter name..." placeholder="Enter name..." disabled>
-                                            <div class="input-group-append ">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- end rreshti pare -->
 
-                            <!-- Rreshti 2: PaymentMethod-->
+                            <div class="row" id="total-price">
+                                <div class="col-sm-9">
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <h5> Total Price:</h5>
+                                        <h6> @Model.TotalPrice€</h6>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                          <!-- Rreshti 2: PaymentMethod-->
                             <div class="row mb-4">
                                 <!-- PaymentMethod -->
                                 <div class="col-sm-12">
@@ -72,8 +67,10 @@
                                 </div>
                             </div> <!-- end rreshti 2 -->
 
+                     
+
                             <!-- Rreshti 3: Card Details-->
-                            <div class="row mb4" id="card-details" class="row" style="display: none;">
+                            <div class="row mb4" id="card-details" style="display: none;">
                             <!-- Card Name -->
                             <div class="col-sm-3">
                                 <div class="form-group">
@@ -123,12 +120,12 @@
                             </div>
                         </div> <!-- end rreshti 3 -->
 
-                        </div> <!-- end of class="card-body" -->
+                  
+           </div> <!-- end of class="card-body" -->
 
                         <div class="card-footer">
                             <button type="submit" class="btn btn-success">@SharedLocalizer["Submit"]</button>
                         </div>
-
                     </form>
                 </div> <!-- /.card -->
             </div> <!-- /.id="left-side-bar" -->
@@ -148,38 +145,18 @@
     <script src="~/theme/plugins/fileinput/js/fileinput.min.js"></script>
 
     <script>
-        $(function () {
-            // Assuming you have a ViewBag or ViewData that holds the base package price
-            var packagePrice = @ViewBag.PackagePrice || @ViewData["PackagePrice"] || @Model.TotalPrice; // Use the correct one
-
-            $('#NumberOfPeople').change(function () {
-                var numberOfPeople = $(this).val();
-                var totalPrice = packagePrice * numberOfPeople;
-                $('#TotalPrice').val(totalPrice.toFixed(2));
-            });
-
-            // Trigger change event on page load in case NumberOfPeople is pre-populated
-            $('#NumberOfPeople').trigger('change');
-        });
-    </script>'<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        
-    <script>
-        $(function () {
-                  
-
-            // Listen for changes to the PaymentMethod select field
+        $(document).ready(function () {
             $('#PaymentMethod').change(function () {
-                // Check if the selected value is 'Visa' or 'Maestro'
-                if ($(this).val() === 'Visa' || $(this).val() === 'Maestro') {
-                    // Show the card details
-                    $('#card-details').show();
+                var paymentMethod = $(this).val();
+                if (paymentMethod === 'Visa' || paymentMethod === 'Maestro') {
+                    $('#card-details').slideDown();
                 } else {
-                    // Hide the card details
-                    $('#card-details').hide();
+                    $('#card-details').slideUp();
                 }
             });
-                });
-    </script>'
+        });
+    </script>
+
 }
 
 

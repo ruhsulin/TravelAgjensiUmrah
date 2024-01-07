@@ -36,6 +36,7 @@ builder.Services.AddTransient<IHotelRepository, HotelRepository>();
 builder.Services.AddTransient<IActivityRepository, ActivityRepository>();
 builder.Services.AddTransient<IRoomTypeRepository, RoomTypeRepository>();
 builder.Services.AddTransient<IPackageRepository, PackageRepository>();
+builder.Services.AddTransient<IReservationRepository, ReservationRepository>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

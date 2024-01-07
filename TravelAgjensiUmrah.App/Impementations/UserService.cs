@@ -125,6 +125,18 @@ namespace TravelAgjensiUmrah.App.Impementations
             return list[list.Count - 1];
         }
 
+        public string GetJustName()
+        {
+            if (CurrentUser != null)
+            {
+                return CurrentUser.Name!;
+
+            }
+            else
+            {
+                return "";
+            }
+        }
 
         public string GetCulture(HttpContext httpContext)
         {
