@@ -1,0 +1,494 @@
+﻿@model PackageViewModel
+@{
+    string cssClass = Model.Id == 0 ? "success" : "warning";
+    string cardTitle = Model.Id == 0 ? @SharedLocalizer["AddNewPackage"] : SharedLocalizer["EditPackage"];
+    string cardTitleDescription = Model.Id == 0 ? @SharedLocalizer["AddNewPackage"] : @SharedLocalizer["EditCurrentPackage"];
+    ViewData["Title"] = @SharedLocalizer["AddNewPackage"];
+
+    var extensionsAll = "jpeg, jpg, png";
+    var extensions = extensionsAll.Split(",").Select(x => x.Trim()).ToArray();
+}
+
+
+@section Styles{
+    <style>
+        .custom-toggle-green.custom-control-input:checked ~ .custom-control-label::before {
+            background-color: #28a745; /* Bootstrap green color */
+            border-color: #28a745;
+        }
+    </style>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/theme/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- File input style-->
+    <link href="~/theme/plugins/fileinput/css/fileinput.min.css" rel="stylesheet" />
+
+    <!-- jQuery Confirm -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <!-- Content header elements here -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12" id="left-side-bar">
+                <div class="card card-@cssClass">
+                    <div class="card-header">
+                        <h3 class="card-title">@cardTitleDescription</h3>
+                        <!-- Card header elements here -->
+                    </div> <!--/.card-header -->
+
+                    <form id="PackageForm" asp-action="AddOrEditPackage" asp-controller="Packages" asp-area="Admin" method="post" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="card-body">
+
+                            <!-- Rreshti 1: Name - Pax-->
+                            <div class="row">
+                                <!-- Name -->
+                                    <div class="col-sm-6">       
+                                        <div class="form-group">
+                                            <label>@SharedLocalizer["Name"] *</label>
+                                            <div class="input-group">
+                                                <input type="text" asp-for="PackageName" class="form-control help-sidebar" data-title="Package Name" data-description="Enter name..." placeholder="Enter name...">
+                                                <div class="input-group-append ">
+                                                    <span class="input-group-text"><i class="fa fa-box-open"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- PAX -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["Pax"] *</label>
+
+                                        <div class="input-group">
+                                          
+                                            <input type="text" asp-for="Pax" class="form-control help-sidebar" data-title="Pax" data-description="Enter pax number..." placeholder="Enter pax number...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-users"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end rreshti 1 -->
+
+
+                            <!-- Rreshti 2: Hotel in Meke - Hotel in Medine-->
+                            <div class="row">
+                                <!-- Hotel in Meke -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["HotelInMeke"] *</label>
+                                        <div class="input-group">
+                                            <select asp-for="SelectedMekeHotelId" asp-items="Model.MekeHotels" class="form-control">
+                                                <option value="">Select a hotel...</option>
+                                            </select>
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-hotel"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Hotel in Medine -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["HotelInMedine"] *</label>
+
+                                        <div class="input-group">
+                                            <select asp-for="SelectedMedinaHotelId" asp-items="Model.MedinaHotels" class="form-control">
+                                                <option value="">Select a hotel...</option>
+                                            </select>
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-hotel"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end of rreshti 2 -->
+
+
+                            <!-- Rreshti 3: Days in Meke - Days in Medine-->
+                            <div class="row">
+                                <!-- Days in Meke -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["DaysInMeke"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="DaysInMecca" class="form-control help-sidebar" data-title="Days in Meke" data-description="Enter number of days..." placeholder="Enter number of days...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-briefcase"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Days in Medine -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["DaysInMedine"] *</label>
+
+                                        <div class="input-group">
+
+                                            <input type="text" asp-for="DaysInMedina" class="form-control help-sidebar" data-title="Days in Mekein Medine" data-description="Enter number of days..." placeholder="Enter number of days...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-briefcase"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end rreshti 3 -->
+
+
+                            <!-- Rreshti 4: Start Days - Return Day - Start Time -->
+                            <div class="row">
+                                <!-- Start Day -->
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["StartDate"] *</label>
+                                        <div class="input-group">
+                                            <input type="date" asp-for="StartDay" class="form-control" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="StartDay" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+                                <!-- Return Day -->
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["ReturnDate"] *</label>
+                                        <div class="input-group">
+                                            <input type="date" asp-for="ReturnDay" class="form-control" />
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                        <span asp-validation-for="ReturnDay" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+
+
+                                <!-- Start Time -->
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["StartTime"] *</label>
+                                        <div class="input-group">
+                                            <select asp-for="StartTime"  class="form-control">
+                                                <option value="">Select a hotel...</option>
+                                                <option>10.00</option>
+                                                <option>17.10</option>
+                                                <option>18.30</option>
+                                            </select>
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-clock"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end of rreshti 4 -->
+
+
+                            <!-- Rreshti 5: MEAL - Ticket - Visa-->
+                            <div class="row">
+                                <!-- Meal CheckBox-->
+                                <div class="col-sm-1">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch  mt-4 ml-4 pt-3 ">
+                                            <input type="checkbox" asp-for="FoodIncluded" class="custom-control-input custom-toggle-green" id="FoodIncludedCheckbox">
+                                            <label class="custom-control-label" for="FoodIncludedCheckbox">@SharedLocalizer[""]</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Meal Input -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["MealPrice"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="FoodPrice" id="FoodPrice" class="form-control help-sidebar" data-title="Food Price" data-description="Enter food price..." placeholder="Enter Food Price...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-utensils"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Ticket Checkbox -->
+                                <div class="col-sm-1">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch mt-4 ml-4 pt-3 ">
+                                            <input type="checkbox" asp-for="TicketIncluded" class="custom-control-input custom-toggle-green" id="TicketIncludedCheckbox">
+                                            <label class="custom-control-label" for="TicketIncludedCheckbox">@SharedLocalizer[""]</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Ticket Price -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["TicketPrice"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="TicketPrice" class="form-control help-sidebar" data-title="Ticket Price" data-description="Enter ticket price..." placeholder="Enter Ticket Price...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-plane"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Visa Checkbox -->
+                                <div class="col-sm-1">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch mt-4 ml-4 pt-3 ">
+                                            <input type="checkbox" asp-for="VisaIncluded" class="custom-control-input custom-toggle-green" id="VisaIncludedCheckbox">
+                                            <label class="custom-control-label" for="VisaIncludedCheckbox">@SharedLocalizer[""]</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Visa Price -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["VisaPrice"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="VisaPrice" class="form-control help-sidebar" data-title="Visa Price" data-description="Enter visa price..." placeholder="Enter Visa Price...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-passport"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end of rreshti 5 -->
+
+          
+                            <!-- Rreshti 6: Ihrami; Zemzem; transport -->
+                            <div class="row">
+                                <!-- Ihram Checkbox -->
+                                <div class="col-sm-1">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch mt-4 ml-4 pt-3 ">
+                                            <input type="checkbox" asp-for="IhramIncluded" class="custom-control-input custom-toggle-green" id="IhramIncludedCheckbox">
+                                            <label class="custom-control-label" for="IhramIncludedCheckbox">@SharedLocalizer[""]</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Ihram Price -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["IhramPrice"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="IhramPrice" class="form-control help-sidebar" data-title="Ihram Price" data-description="Enter ihram price..." placeholder="Enter Ihram Price...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-vest"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Zemzem Checkbox -->
+                                <div class="col-sm-1">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch mt-4 ml-4 pt-3 ">
+                                            <input type="checkbox" asp-for="ZemZemIncluded" class="custom-control-input custom-toggle-green" id="ZemzemIncludedCheckbox">
+                                            <label class="custom-control-label" for="ZemzemIncludedCheckbox">@SharedLocalizer[""]</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Zemzem Price -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["ZemzemmPrice"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="ZemzemPrice" class="form-control help-sidebar" data-title="Zemzem Price" data-description="Enter zemzem price..." placeholder="Enter Zemzem Price...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-water"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- toAirport Checkbox -->
+                                <div class="col-sm-1">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-switch mt-4 ml-4 pt-3 ">
+                                            <input type="checkbox" asp-for="TransportationToAirportIncluded" class="custom-control-input custom-toggle-green" id="toAirportIncludedCheckbox">
+                                            <label class="custom-control-label" for="toAirportIncludedCheckbox">@SharedLocalizer[""]</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- toAirport Price -->
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["TransportToAirportPrice"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="TransportationToAirportPrice" class="form-control help-sidebar" data-title="Transport to Airport Price" data-description="Enter price for transport..." placeholder="Enter transport Price...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-bus"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end of rreshti 6 -->
+
+          
+                            <!-- Rreshti 7: Transport in Arabia - Guide Guy - Service  -->
+                            <div class="row">
+                                <!-- transport in Arabia Price -->
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["TransportInArabiaPrice"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="TransportationInArabiaPrice" class="form-control help-sidebar" data-title="Transport in Arabia Price" data-description="Enter price for transport..." placeholder="Enter transport Price...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-bus"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Guide Guy -->
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["HoxhaShoqerues"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="GuideGuyName" class="form-control help-sidebar" data-title="guide guy" data-description="Enter name of guide..." placeholder="Enter name of guide...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Service -->
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["Service"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="Service" class="form-control help-sidebar" data-title="service" data-description="Enter service price..." placeholder="Enter service price...">
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-coins"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end of rreshti 7 -->
+
+
+                            <!-- Rreshti 8 Description -->
+                            <div class="row">
+                                <!-- description -->
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["Description"] *</label>
+                                        <div class="input-group">
+                                            <textarea asp-for="Description" class="form-control help-sidebar" rows="5" data-title="description" data-description="Enter description..." placeholder="Enter description here..."></textarea>
+                                            <div class="input-group-append ">
+                                                <span class="input-group-text"><i class="fa fa-scroll"></i></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                           
+                          
+                            </div> <!-- end of rreshti 8 -->
+
+                        </div> <!-- end of class="card-body" -->
+
+                    
+                   <div class="card-footer">
+                       <button type="submit" class="btn btn-@cssClass">@SharedLocalizer["Submit"]</button>
+                   </div>
+                       
+                </form>
+                </div> <!-- /.card -->
+            </div> <!-- /.id="left-side-bar" -->
+        </div> <!-- end of row -->
+    </div> <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+@section Scripts{
+    <!-- jquery-validation -->
+    <script src="~/theme/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/theme/plugins/jquery-validation/additional-methods.min.js"></script>
+
+    <!-- File Input -->
+    <script src="~/theme/plugins/fileinput/js/fileinput.min.js"></script>
+    
+
+    <script>
+        $(document).ready(function () {
+            // Function to toggle input fields
+            function toggleInputFields() {
+                // Food Checkbox
+                var isFoodIncluded = $('#FoodIncludedCheckbox').is(':checked');
+                $('#FoodPrice').prop('disabled', !isFoodIncluded);
+
+                // Ticket Checkbox
+                var isTicketIncluded = $('#TicketIncludedCheckbox').is(':checked');
+                $('#TicketPrice').prop('disabled', !isTicketIncluded);
+
+
+                // Visa Checkbox
+                var isVisaIncluded = $('#VisaIncludedCheckbox').is(':checked');
+                $('#VisaPrice').prop('disabled', !isVisaIncluded);
+
+                // Ihram Checkbox
+                var isIhramIncluded = $('#IhramIncludedCheckbox').is(':checked');
+                $('#IhramPrice').prop('disabled', !isIhramIncluded);
+
+                // Visa Checkbox
+                var isZemzemIncluded = $('#ZemzemIncludedCheckbox').is(':checked');
+                $('#ZemzemPrice').prop('disabled', !isZemzemIncluded);
+
+                // Transport To Airport Checkbox
+                var istransportToAirportIncluded = $('#toAirportIncludedCheckbox').is(':checked');
+                $('#TransportationToAirportPrice').prop('disabled', !istransportToAirportIncluded);
+            }
+
+            // Initial check on page load
+            toggleInputFields();
+
+            // Event listeners for checkbox changes
+            // Meal
+            $('#FoodIncludedCheckbox').change(function () {
+                toggleInputFields();
+            });
+
+            // Plane Ticket
+            $('#TicketIncludedCheckbox').change(function () {
+                toggleInputFields();
+            });
+
+            // Visa
+            $('#VisaIncludedCheckbox').change(function () {
+                toggleInputFields();
+            });
+
+            // Ihram
+            $('#IhramIncludedCheckbox').change(function () {
+                toggleInputFields();
+            });
+
+            // Zemzem
+            $('#ZemzemIncludedCheckbox').change(function () {
+                toggleInputFields();
+            });
+
+            // transport to airport
+            $('#toAirportIncludedCheckbox').change(function () {
+                toggleInputFields();
+            });
+        });
+    </script>
+
+    <!-- Other scripts... -->
+}
+
+
+
+
