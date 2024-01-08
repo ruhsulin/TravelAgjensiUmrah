@@ -17,8 +17,10 @@ namespace Presentation.Areas.Client
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Faq()
         {
+            ViewBag.ShowNavbar = true;
+
             return View();
         }
 

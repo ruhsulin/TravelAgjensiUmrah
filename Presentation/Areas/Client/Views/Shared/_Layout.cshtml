@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AspNetCoreMvcIdentity</title>
+    <title>@ViewData["Title"] - TabaTravel</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -58,7 +58,7 @@
         
         <div class="container-fluid p-0">
             <nav class="navbar navbar-dark bg-dark navbar-expand-lg px-4 px-lg-5 py-3 py-lg-0">
-                <a href="" class="navbar-brand p-3">
+                <a asp-controller="Home" asp-action="Index" asp-area="Client" class="navbar-brand p-3">
                     <h1 class="text-primary m-0"><i class="fa fa-map-marker-alt me-3"></i>Taba Travel</h1>
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
@@ -90,10 +90,10 @@
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
                     <div class="d-inline-flex align-items-center" style="height: 45px;">
-                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-twitter fw-normal"></i></a>
-                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" target="_blank" href="https://www.facebook.com/profile.php?id=100086462889619"><i class="fab fa-twitter fw-normal"></i></a>
+                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" target="_blank " href="https://www.facebook.com/profile.php?id=100086462889619"><i class="fab fa-facebook-f fw-normal"></i></a>
                         <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
-                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                        <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" target="_blank" href="https://www.instagram.com/tabatravelagency/"><i class="fab fa-instagram fw-normal"></i></a>
                         <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i class="fab fa-youtube fw-normal"></i></a>
                     </div>
                 </div>
