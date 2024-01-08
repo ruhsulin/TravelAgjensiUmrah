@@ -1,53 +1,85 @@
 ﻿@model ReservationViewModel
 
+@{
+    ViewData["Title"] = "MakePayment";
+}
 
 @section Styles{
-    <!-- DataTables -->
-    <link rel="stylesheet" href="~/theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="~/theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="~/theme/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-    <!-- File input style-->
-    <link href="~/theme/plugins/fileinput/css/fileinput.min.css" rel="stylesheet" />
     <!-- jQuery Confirm -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 }
 
-
 <section class="content">
     <div class="container">
+
+        <div class="text-center wow fadeInUp mt-4" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">Make Payment</h6>
+        </div>
+
         <div class="row mt-5 mb-5">
             <!-- left column -->
             <div class="col-md-12" id="left-side-bar">
-                <div class="card ">
-                    <div class="card-header">
-                        <h3 class="card-title">Book Now</h3>
+                <div class="card">
+                    <div class="card-header bg-success">
+                        <h3 class="text-white card-title">Make Payment</h3>
                         <!-- Card header elements here -->
                     </div> <!--/.card-header -->
-
-
-                    <form id="HotelForm" asp-action="ProcessReservation" asp-controller="Reservations" asp-area="Client" method="post" enctype="multipart/form-data">
-                        <input type="hidden" asp-for="Id" />
-                        <div class="card-body p-3">
+                    <!-- FORM -->
+                    <form id="ConfirmReservationForm" asp-action="ProcessReservation" asp-controller="Reservations" asp-area="Client" method="post" enctype="multipart/form-data">
+                        <!-- Hidden Inputs Div -->
+                        <div>
+                            <input type="hidden" asp-for="Id" />
                             <input type="hidden" asp-for="BookingDate" />
                             <input type="hidden" asp-for="TotalPrice" />
                             <input type="hidden" asp-for="UserName" />
                             <input type="hidden" asp-for="PackageId" />
-                            <input type="hidden" asp-for="UserId"/>
+                            <input type="hidden" asp-for="UserId" />
                             <input type="hidden" asp-for="NumberOfPeople" value="1" />
                             <input type="hidden" asp-for="Status" value="completed" />
+                        </div> <!-- ./div for hidden inputs-->
 
-
-                            <div class="row" id="total-price">
-                                <div class="col-sm-9">
-                                </div>
-                                <div class="col-sm-3">
+                        <div class="card-body p-3">
+                            <!-- Rreshti 1: Name - Pax-->
+                            <div class="row">
+                                <!-- Name -->
+                                <div class="col-sm-6">
                                     <div class="form-group">
-                                        <h5> Total Price:</h5>
-                                        <h6> @Model.TotalPrice€</h6>
+                                        <label>@SharedLocalizer["FirstName"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="UserName" class="form-control help-sidebar" data-title="UserRealName" data-description="Enter name..." placeholder="Enter name...">
+                                            <div class="input-group-append ">
+                                            </div>
+                                        </div>
                                     </div>
-
+                                </div>
+                                <!-- PAX -->
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>@SharedLocalizer["LastName"] *</label>
+                                        <div class="input-group">
+                                            <input type="text" asp-for="UserName" class="form-control help-sidebar" data-title="Pax" data-description="Enter pax number..." placeholder="Enter pax number...">
+                                            <div class="input-group-append ">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end rreshti 1 -->
+                            <!-- Rreshti 1: Total Price-->
+                            <br/>
+                            <br />
+                            <div class="row" id="total-price">
+                                <div class="col-sm-8">
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <hr />
+                                        <h5 class="text-end"> Total Price:</h5>
+                                        <h6 class="text-end"> @Model.TotalPrice€</h6>
+                                        <hr />
+                                    </div>
                                 </div>
                             </div>
+                            <!-- End of Rreshti 1-->
 
                           <!-- Rreshti 2: PaymentMethod-->
                             <div class="row mb-4">
@@ -65,11 +97,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> <!-- end rreshti 2 -->
-
-                     
-
-                            <!-- Rreshti 3: Card Details-->
+                            </div> 
+                          <!-- end rreshti 2 -->
+                  
+                          <!-- Rreshti 3: Card Details-->
                             <div class="row mb4" id="card-details" style="display: none;">
                             <!-- Card Name -->
                             <div class="col-sm-3">
@@ -118,45 +149,82 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> <!-- end rreshti 3 -->
+                        </div> 
+                          <!-- end rreshti 3 -->
 
-                  
-           </div> <!-- end of class="card-body" -->
-
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-success">@SharedLocalizer["Submit"]</button>
-                        </div>
+                        </div> <!-- end of class="card-body" -->
                     </form>
+
+                    <div class="card-footer">
+                        <button type="button" id="dergoButton" class="btn btn-success">@SharedLocalizer["Submit"]</button>
+                    </div>
                 </div> <!-- /.card -->
             </div> <!-- /.id="left-side-bar" -->
         </div> <!-- end of row -->
     </div> <!-- /.container-fluid -->
-</section>
+   </section>
 <!-- /.content -->
 @section Scripts {
-    <!-- Include jQuery if it's not already included -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- jquery-validation -->
-    <script src="~/theme/plugins/jquery-validation/jquery.validate.min.js"></script>
-    <script src="~/theme/plugins/jquery-validation/additional-methods.min.js"></script>
-
-    <!-- File Input -->
-    <script src="~/theme/plugins/fileinput/js/fileinput.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#PaymentMethod').change(function () {
-                var paymentMethod = $(this).val();
-                if (paymentMethod === 'Visa' || paymentMethod === 'Maestro') {
-                    $('#card-details').slideDown();
-                } else {
-                    $('#card-details').slideUp();
+            $(document).ready(function () {
+                // Payment method change handler
+                $('#PaymentMethod').change(function () {
+                    var paymentMethod = $(this).val();
+                    if (paymentMethod === 'Visa' || paymentMethod === 'Maestro') {
+                        $('#card-details').slideDown();
+                    } else {
+                        $('#card-details').slideUp();
+                    }
+                });
+
+                // Form submission handler
+                $("#dergoButton").on("click", function () {
+                    var paymentMethod = $('#PaymentMethod').val();
+
+                    // Check if a payment method is selected
+                    if (!paymentMethod) {
+                        alert("Please select a payment method.");
+                        return;
+                    }
+
+                    // If Visa or Maestro is selected, validate card details
+                    if (paymentMethod === 'Visa' || paymentMethod === 'Maestro') {
+                        if (!validateCardDetails()) {
+                            alert("Please fill out all card details.");
+                            return;
+                        }
+                    }
+
+                    // Show confirmation dialog
+                    $.confirm({
+                        title: '<i class="fa fa-warning"></i> Please Confirm',
+                        content: 'Are you sure you want to submit this reservation?',
+                        type: 'green',
+                        buttons: {
+                            cancel: { text: 'Cancel', btnClass: 'btn-danger', action: function () { } },
+                            confirm: {
+                                text: 'Confirm',
+                                btnClass: 'btn-success',
+                                action: function () {
+                                    $('#ConfirmReservationForm').submit(); // Submit the form
+                                }
+                            },
+                        }
+                    });
+                });
+
+                // Function to validate card details
+                function validateCardDetails() {
+                    var cardName = $('#card-name').val().trim();
+                    var cardNumber = $('#Card-number').val().trim();
+                    var cardDate = $('#Card-date').val().trim();
+                    var secretNumber = $('#secret-number').val().trim();
+
+                    return cardName && cardNumber && cardDate && secretNumber;
                 }
             });
-        });
     </script>
-
 }
 
 

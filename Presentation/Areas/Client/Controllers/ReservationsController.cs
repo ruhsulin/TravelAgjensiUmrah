@@ -8,7 +8,6 @@ using TravelAgjensiUmrah.Data.Entities;
 namespace Presentation.Areas.Client.Controllers
 {
     [Area(AreasConstants.Client)]
-
     public class ReservationsController : Controller
     {
         private readonly IPackageRepository _packageRepository;
@@ -62,6 +61,8 @@ namespace Presentation.Areas.Client.Controllers
                 TotalPrice = package.TicketPrice + package.MealPrice + package.VisaPrice + package.IhramPrice + package.ZemzemPrice + package.TransportInArabiaPrice + package.Service
             };
 
+            ViewData["ShowNavbar"] = true;
+
             return View(model);
         }
 
@@ -103,12 +104,14 @@ namespace Presentation.Areas.Client.Controllers
                 return RedirectToAction("Confirmation", new { reservationId = reservation.Id });
             }
 
+            ViewData["ShowNavbar"] = true;
             return View("CreateReservation", model);
         }
 
 
         public IActionResult Confirmation(int reservationId)
         {
+
             var reservation = _reservationRepository.GetReservationById(reservationId);
             if (reservation == null)
             {
@@ -126,10 +129,9 @@ namespace Presentation.Areas.Client.Controllers
                 Status = reservation.Status,
                 UserName = _userService.GetJustName(),
                 AdditionalRequests = reservation.AdditionalRequests,
-
-                // Map other necessary properties
             };
 
+            ViewData["ShowNavbar"] = true;
             return View(model);
         }
     }

@@ -1,17 +1,18 @@
-﻿using TravelAgjensiUmrah.App.Interfaces;
+﻿using ravelAgjensiUmrah.App.Impementations;
+using TravelAgjensiUmrah.App.Interfaces;
 using TravelAgjensiUmrah.Data.Context;
 using TravelAgjensiUmrah.Data.Entities;
 
 namespace TravelAgjensiUmrah.App.Impementations
 {
-    public class ReservationRepository : IReservationRepository
+    public class ReservationRepository : Repository<Reservation>, IReservationRepository
     {
         protected readonly TravelAgencyUmrahContext _travelAgencyUmrahContext;
 
 
-        public ReservationRepository(TravelAgencyUmrahContext context)
+        public ReservationRepository(TravelAgencyUmrahContext travelAgencyUmrahContext) : base(travelAgencyUmrahContext)
         {
-            _travelAgencyUmrahContext = context;
+            _travelAgencyUmrahContext = travelAgencyUmrahContext;
         }
 
         public Reservation GetReservationById(int id)
@@ -34,13 +35,9 @@ namespace TravelAgjensiUmrah.App.Impementations
             _travelAgencyUmrahContext.Reservations.Update(reservation);
         }
 
-        public void DeleteReservation(int id)
+        public void Delete(Reservation res)
         {
-            var reservation = _travelAgencyUmrahContext.Reservations.Find(id);
-            if (reservation != null)
-            {
-                _travelAgencyUmrahContext.Reservations.Remove(reservation);
-            }
+            _travelAgencyUmrahContext.Reservations.Remove(res);
         }
 
         public void Save()
