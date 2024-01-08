@@ -13,14 +13,27 @@ namespace Presentation.Areas.Client
         public IActionResult Index()
         {
             ViewBag.ShowHero = true;
+            ViewBag.ShowAboutUsPage = true;
+            ViewBag.ShowReadUsButton = true;
+            return View();
+        }
 
+        public IActionResult AboutUs()
+        {
+            ViewBag.ShowNavbar = true;
+            ViewBag.ShowAboutUsPage = true;
+            return View();
+        }
+
+        public IActionResult ContactUs()
+        {
+            ViewBag.ShowNavbar = true;
             return View();
         }
 
         public IActionResult Faq()
         {
             ViewBag.ShowNavbar = true;
-
             return View();
         }
 
