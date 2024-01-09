@@ -27,6 +27,8 @@ namespace TravelAgjensiUmrah.Data.Context
         public virtual DbSet<RoomType> RoomTypes { get; set; } = null!;
         public virtual DbSet<UserPicture> UserPictures { get; set; } = null!;
 
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AspNetRole>(entity =>
@@ -84,6 +86,11 @@ namespace TravelAgjensiUmrah.Data.Context
                     .WithMany(p => p.PackageHotelInMedinaNavigations)
                     .HasForeignKey(d => d.HotelInMedina)
                     .HasConstraintName("FK__Packages__hotelI__2BFE89A6");
+
+                entity.HasOne(d => d.Picture)
+                    .WithMany(p => p.Packages)
+                    .HasForeignKey(d => d.PictureId)
+                    .HasConstraintName("FK__Packages__Pictur__3E1D39E1");
             });
 
             modelBuilder.Entity<Reservation>(entity =>

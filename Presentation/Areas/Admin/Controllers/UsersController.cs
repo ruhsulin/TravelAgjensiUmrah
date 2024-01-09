@@ -82,7 +82,6 @@ namespace Presentation.Areas.Admin.Controllers
         }
 
 
-
         [HttpPost]
         public async Task<IActionResult> AddAsync(UserViewModel model)
         {
@@ -229,8 +228,6 @@ namespace Presentation.Areas.Admin.Controllers
                 throw ex;
             }
         }
-
-
 
     }
 }

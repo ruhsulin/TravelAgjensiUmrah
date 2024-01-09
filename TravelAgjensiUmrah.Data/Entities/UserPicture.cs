@@ -12,6 +12,7 @@ namespace TravelAgjensiUmrah.Data.Entities
         public UserPicture()
         {
             AspNetUsers = new HashSet<AspNetUser>();
+            Packages = new HashSet<Package>();
         }
 
         [Key]
@@ -22,5 +23,7 @@ namespace TravelAgjensiUmrah.Data.Entities
 
         [InverseProperty("Picture")]
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        [InverseProperty("Picture")]
+        public virtual ICollection<Package> Packages { get; set; }
     }
 }

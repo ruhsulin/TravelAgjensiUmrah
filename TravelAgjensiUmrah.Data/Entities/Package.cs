@@ -73,6 +73,8 @@ namespace TravelAgjensiUmrah.Data.Entities
         public string? Description { get; set; }
         [Column("service", TypeName = "decimal(10, 2)")]
         public decimal? Service { get; set; }
+        public int? PictureId { get; set; }
+        public string? PicturePath { get; set; }
 
         [ForeignKey("HotelInMecca")]
         [InverseProperty("PackageHotelInMeccaNavigations")]
@@ -80,6 +82,9 @@ namespace TravelAgjensiUmrah.Data.Entities
         [ForeignKey("HotelInMedina")]
         [InverseProperty("PackageHotelInMedinaNavigations")]
         public virtual Hotel? HotelInMedinaNavigation { get; set; }
+        [ForeignKey("PictureId")]
+        [InverseProperty("Packages")]
+        public virtual UserPicture? Picture { get; set; }
         [InverseProperty("Package")]
         public virtual ICollection<Reservation> Reservations { get; set; }
     }

@@ -40,7 +40,7 @@ namespace Presentation.Areas.Admin.Models.ReservationViewModel
         [Display(Name = "Additional Requests")]
         public string? AdditionalRequests { get; set; }
 
-        // Optional: You can include properties for displaying related data
+
         public string? UserName { get; set; } // To display user's name
         public string? PackageName { get; set; } // To display package's name
     }

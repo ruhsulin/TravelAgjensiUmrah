@@ -39,6 +39,7 @@ namespace Presentation.Areas.Client.Models.PackageViewModel
         public string? Description { get; set; }
         public decimal? Service { get; set; }
         public decimal? PackagePrice { get; set; }
+        public string? PicturePath { get; set; }
 
 
     }
