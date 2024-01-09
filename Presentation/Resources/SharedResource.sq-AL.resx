@@ -135,8 +135,20 @@
   <data name="AddNewHotel" xml:space="preserve">
     <value>Shto Hotel</value>
   </data>
+  <data name="AddNewPackage" xml:space="preserve">
+    <value>Shto Paketë të re</value>
+  </data>
+  <data name="AddNewReservation" xml:space="preserve">
+    <value>Shto rezervim të ri</value>
+  </data>
   <data name="AddNewUser" xml:space="preserve">
     <value>Shto përdorues</value>
+  </data>
+  <data name="AddPackage" xml:space="preserve">
+    <value>Shto Paketë</value>
+  </data>
+  <data name="AddReservation" xml:space="preserve">
+    <value>Shto Rezervim</value>
   </data>
   <data name="AreYouSureYouWantToDeleteThisHotel" xml:space="preserve">
     <value>A jeni i sigurt që dëshironi ta fshini këtë hotel?</value>
@@ -149,6 +161,12 @@
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Konfirmo Fjalëkalimin</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Kontakti</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Paneli punues</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Fshij</value>
@@ -175,16 +193,31 @@
     <value>Konfirmimi Emailit</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Ballina</value>
+    <value>Kryefaqja</value>
+  </data>
+  <data name="HotelList" xml:space="preserve">
+    <value>Lista Hoteleve</value>
   </data>
   <data name="Hotels" xml:space="preserve">
     <value>Hotelet</value>
   </data>
+  <data name="Index" xml:space="preserve">
+    <value>Indeks</value>
+  </data>
   <data name="Location" xml:space="preserve">
     <value>Vendndodhja</value>
   </data>
+  <data name="MoreInfo" xml:space="preserve">
+    <value>Më shumë informacion</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Emri</value>
+  </data>
+  <data name="PackageList" xml:space="preserve">
+    <value>Lista Paketave</value>
+  </data>
+  <data name="PackageName" xml:space="preserve">
+    <value>Emri paketës</value>
   </data>
   <data name="Packages" xml:space="preserve">
     <value>Paketat</value>
@@ -192,14 +225,38 @@
   <data name="Password" xml:space="preserve">
     <value>Fjalëkalimi</value>
   </data>
+  <data name="PaymenthMethod" xml:space="preserve">
+    <value>Mënyra pagesës</value>
+  </data>
   <data name="PhoneConfirmed" xml:space="preserve">
     <value>Konfirmi Telefonit</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Numri Telefonit</value>
   </data>
+  <data name="Picture" xml:space="preserve">
+    <value>Fotografija</value>
+  </data>
+  <data name="PlaneTicket" xml:space="preserve">
+    <value>Bileta Aeroplanit</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Çmimi</value>
+  </data>
+  <data name="Reservations" xml:space="preserve">
+    <value>Rezervimet</value>
+  </data>
   <data name="Role" xml:space="preserve">
     <value>Roli</value>
+  </data>
+  <data name="RoomFor2" xml:space="preserve">
+    <value>Dhomë për 2</value>
+  </data>
+  <data name="RoomFor3" xml:space="preserve">
+    <value>Dhomë për 3</value>
+  </data>
+  <data name="RoomFor4" xml:space="preserve">
+    <value>Dhomë për 4</value>
   </data>
   <data name="RoomTypes" xml:space="preserve">
     <value>Llojet e Dhomës</value>
@@ -222,10 +279,16 @@
   <data name="Surname" xml:space="preserve">
     <value>Mbiemri</value>
   </data>
+  <data name="UserId" xml:space="preserve">
+    <value>Id e përdoruesit</value>
+  </data>
   <data name="UserList" xml:space="preserve">
     <value>Lista e përdoruesve</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Përdoruesit</value>
+  </data>
+  <data name="Visa" xml:space="preserve">
+    <value>Viza</value>
   </data>
 </root>
