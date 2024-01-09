@@ -150,6 +150,9 @@
   <data name="AddReservation" xml:space="preserve">
     <value>Shto Rezervim</value>
   </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Shto përdorues</value>
+  </data>
   <data name="AreYouSureYouWantToDeleteThisHotel" xml:space="preserve">
     <value>A jeni i sigurt që dëshironi ta fshini këtë hotel?</value>
   </data>
@@ -180,8 +183,14 @@
   <data name="Edit" xml:space="preserve">
     <value>Përmirëso</value>
   </data>
+  <data name="EditCurrentPackage" xml:space="preserve">
+    <value>Përmiso paketën aktuale</value>
+  </data>
   <data name="EditCurrentUser" xml:space="preserve">
     <value>Përmiso përdoruesin aktual</value>
+  </data>
+  <data name="EditPackage" xml:space="preserve">
+    <value>Përmiso paketën</value>
   </data>
   <data name="EditUser" xml:space="preserve">
     <value>Përmiso përdoruesin</value>

@@ -153,6 +153,9 @@
   <data name="AddReservation" xml:space="preserve">
     <value>Add Reservation</value>
   </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Add User</value>
+  </data>
   <data name="AreYouSureYouWantToDeleteThisHotel" xml:space="preserve">
     <value>Are you sure you want to delete this hotel?</value>
   </data>
@@ -183,8 +186,14 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="EditCurrentPackage" xml:space="preserve">
+    <value>Edit Current Package</value>
+  </data>
   <data name="EditCurrentUser" xml:space="preserve">
     <value>Edit current user</value>
+  </data>
+  <data name="EditPackage" xml:space="preserve">
+    <value>Edit Package</value>
   </data>
   <data name="EditUser" xml:space="preserve">
     <value>Edit User</value>

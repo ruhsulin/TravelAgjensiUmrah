@@ -2,9 +2,9 @@
 @model PackageViewModel
 @{
     string cssClass = Model.Id == 0 ? "success" : "warning";
-    string cardTitle = Model.Id == 0 ? @SharedLocalizer["AddNewPackage"] : SharedLocalizer["EditPackage"];
-    string cardTitleDescription = Model.Id == 0 ? @SharedLocalizer["AddNewPackage"] : @SharedLocalizer["EditCurrentPackage"];
-    ViewData["Title"] = @SharedLocalizer["AddNewPackage"];
+    string cardTitle = Model.Id == 0 ? @SharedLocalizer["AddPackage"] : SharedLocalizer["EditPackage"];
+    string cardTitleDescription = Model.Id == 0 ? @SharedLocalizer["AddPackage"] : @SharedLocalizer["EditCurrentPackage"];
+    ViewData["Title"] = Model.Id == 0 ? @SharedLocalizer["AddPackage"] : @SharedLocalizer["EditPackage"]; 
 
     var extensionsAll = "jpeg, jpg, png";
     var extensions = extensionsAll.Split(",").Select(x => x.Trim()).ToArray();
@@ -30,6 +30,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 }
 
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+
+            <div class="col-sm-6">
+                <h1>@cardTitle</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Home" asp-area="Admin">@SharedLocalizer["Home"]</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-action="Packages" asp-area="Admin">@SharedLocalizer["Packages"]</a></li>
+                    @if (Model.Id == 0)
+                    {
+                        <li class="breadcrumb-item active">@SharedLocalizer["Add"]</li>
+                    }
+                    else
+                    {
+                        <li class="breadcrumb-item"><a href="#">@SharedLocalizer["Edit"]</a></li>
+                    }
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
 <!-- Content Header (Page header) -->
 <section class="content-header">

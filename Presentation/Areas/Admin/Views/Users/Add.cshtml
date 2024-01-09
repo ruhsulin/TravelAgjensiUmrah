@@ -3,7 +3,7 @@
     string cssClass = string.IsNullOrEmpty(Model.Id) ? "success" : "warning";
     string cardTitle = string.IsNullOrEmpty(Model.Id) ? @SharedLocalizer["AddNewUser"] : SharedLocalizer["EditUser"];
     string cardTitleDescription = string.IsNullOrEmpty(Model.Id) ? @SharedLocalizer["AddNewUser"] : @SharedLocalizer["EditCurrentUser"];
-    ViewData["Title"] = @SharedLocalizer["AddNewUser"];
+    ViewData["Title"] = string.IsNullOrEmpty(Model.Id) ? @SharedLocalizer["AddUser"] : @SharedLocalizer["EditUser"];
 
     var extensionsAll = "jpeg, jpg, png";
     var extensions = extensionsAll.Split(",").Select(x => x.Trim()).ToArray();
@@ -24,8 +24,8 @@
 
 
 
-<!-- Content Header (Page header) -->
 
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -44,7 +44,6 @@
                     else
                     {
                         <li class="breadcrumb-item"><a href="#">@SharedLocalizer["Edit"]</a></li>
-                        <li class="breadcrumb-item active">@Model.Id</li>
                     }
                 </ol>
             </div>
