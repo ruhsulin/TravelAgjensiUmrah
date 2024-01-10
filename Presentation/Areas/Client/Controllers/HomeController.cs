@@ -12,6 +12,8 @@ namespace Presentation.Areas.Client
     {
         public IActionResult Index()
         {
+            ViewBag.ShowTopbar = true;
+            ViewBag.ShowNavbar = true;
             ViewBag.ShowHero = true;
             ViewBag.ShowAboutUsPage = true;
             ViewBag.ShowReadUsButton = true;
