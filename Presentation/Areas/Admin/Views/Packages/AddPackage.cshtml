@@ -149,7 +149,7 @@
                                     <div class="form-group">
                                         <label>@SharedLocalizer["DaysInMeke"] *</label>
                                         <div class="input-group">
-                                            <input type="text" asp-for="DaysInMecca" class="form-control help-sidebar" data-title="Days in Meke" data-description="Enter number of days..." placeholder="Enter number of days...">
+                                            <input type="text" asp-for="DaysInMecca" id="DaysInMecca" class="form-control help-sidebar" data-title="Days in Meke" data-description="Enter number of days..." placeholder="Enter number of days...">
                                             <div class="input-group-append ">
                                                 <span class="input-group-text"><i class="fa fa-briefcase"></i></span>
                                             </div>
@@ -163,7 +163,7 @@
 
                                         <div class="input-group">
 
-                                            <input type="text" asp-for="DaysInMedina" class="form-control help-sidebar" data-title="Days in Mekein Medine" data-description="Enter number of days..." placeholder="Enter number of days...">
+                                            <input type="text" asp-for="DaysInMedina" id="DaysInMedina" class="form-control help-sidebar" data-title="Days in Mekein Medine" data-description="Enter number of days..." placeholder="Enter number of days...">
                                             <div class="input-group-append ">
                                                 <span class="input-group-text"><i class="fa fa-briefcase"></i></span>
                                             </div>
@@ -180,7 +180,7 @@
                                     <div class="form-group">
                                         <label>@SharedLocalizer["StartDate"] *</label>
                                         <div class="input-group">
-                                            <input type="date" asp-for="StartDay" class="form-control" />
+                                            <input type="date" asp-for="StartDay" id="StartDay" class="form-control" min="@Model.MinDate.ToString("yyyy-MM-dd")" />
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                             </div>
@@ -195,7 +195,7 @@
                                     <div class="form-group">
                                         <label>@SharedLocalizer["ReturnDate"] *</label>
                                         <div class="input-group">
-                                            <input type="date" asp-for="ReturnDay" class="form-control" />
+                                            <input type="date" asp-for="ReturnDay" id="ReturnDay" class="form-control" />
                                             <div class="input-group-append">
                                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                             </div>
@@ -508,6 +508,26 @@
             // transport to airport
             $('#toAirportIncludedCheckbox').change(function () {
                 toggleInputFields();
+            });
+
+            //Calculate the return date
+            function calculateReturnDate() {
+                var startDate = $('#StartDay').val();
+                var daysInMecca = parseInt($('#DaysInMecca').val() || 0);
+                var daysInMedina = parseInt($('#DaysInMedina').val() || 0);
+
+                if (startDate) {
+                    var returnDate = new Date(startDate);
+                    returnDate.setDate(returnDate.getDate() + daysInMecca + daysInMedina);
+
+                    $('#ReturnDay').val(returnDate.toISOString().split('T')[0]);
+                }
+            }
+
+            $(document).ready(function () {
+                $('#DaysInMecca, #DaysInMedina, #StartDay').change(function () {
+                    calculateReturnDate();
+                });
             });
         });
     </script>

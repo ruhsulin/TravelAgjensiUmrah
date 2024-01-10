@@ -17,6 +17,8 @@ namespace Presentation.Areas.Admin.Models.PackageViewModel
 
         public int? DaysInMedina { get; set; }
         public int? DaysInMecca { get; set; }
+        public DateTime MinDate { get; set; }
+
         public DateTime? StartDay { get; set; }
         public DateTime? ReturnDay { get; set; }
         public string? StartTime { get; set; }

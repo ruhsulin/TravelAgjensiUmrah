@@ -9,12 +9,13 @@ namespace Presentation.Areas.Client.Models.PackageViewModel
         public int? Pax { get; set; }
         public int? HotelInMeka { get; set; }
         public int? HotelInMedina { get; set; }
+        public string? HotelInMeccaName { get; set; }
+        public string? HotelInMedinaName { get; set; }
         public SelectList? MekeHotels { get; set; }
         public SelectList? MedinaHotels { get; set; }
         public int? SelectedMekeHotelId { get; set; }
         public int? SelectedMedinaHotelId { get; set; }
         public string? RoomType { get; set; }
-
         public int? DaysInMedina { get; set; }
         public int? DaysInMecca { get; set; }
         public DateTime? StartDay { get; set; }
@@ -40,6 +41,7 @@ namespace Presentation.Areas.Client.Models.PackageViewModel
         public decimal? Service { get; set; }
         public decimal? PackagePrice { get; set; }
         public string? PicturePath { get; set; }
+        public int? TotalDays { get; set; }
 
 
     }

@@ -6,6 +6,7 @@ using TravelAgjensiUmrah.App.Constants;
 using TravelAgjensiUmrah.App.Interfaces;
 using TravelAgjensiUmrah.Data.Entities;
 
+
 namespace Presentation.Areas.Admin.Controllers
 {
     [Area(AreasConstants.Admin)]
@@ -43,7 +44,8 @@ namespace Presentation.Areas.Admin.Controllers
             var model = new PackageViewModel
             {
                 MekeHotels = new SelectList(mekeHotels, "Value", "Text"),
-                MedinaHotels = new SelectList(medinaHotels, "Value", "Text")
+                MedinaHotels = new SelectList(medinaHotels, "Value", "Text"),
+                MinDate = DateTime.Today
             };
 
             return View(model);
@@ -119,6 +121,8 @@ namespace Presentation.Areas.Admin.Controllers
                     pax = x.Pax,
                     ticket = x.TicketPrice,
                     visa = x.VisaPrice,
+                    hotelMeka = x.HotelInMeccaNavigation?.HotelName,
+                    hotelMedina = x.HotelInMedinaNavigation?.HotelName
 
                 });
 
