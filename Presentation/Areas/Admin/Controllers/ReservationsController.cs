@@ -10,6 +10,7 @@ namespace Presentation.Areas.Admin.Controllers
     {
         private readonly IReservationRepository _reservationRepository;
 
+
         // KOnstruktori
         public ReservationsController(IReservationRepository reservationRepository)
         {
@@ -33,9 +34,11 @@ namespace Presentation.Areas.Admin.Controllers
                 var result = reservation.Select(x => new
                 {
                     id = x.Id,
-                    user = x.UserId,
+                    userFirstName = x.User!.Name,
+                    userLastName = x.User.Surname,
                     package = x.PackageId,
-                    reservationDate = x.BookingDate,
+                    packageName = x.Package!.PackageName,
+                    reservationDate = x.BookingDate?.Date.ToString("dd/MM/yyyy"),
                     price = x.TotalPrice,
                     status = x.Status,
                     paymentMethod = x.PaymentMethod,
@@ -45,9 +48,10 @@ namespace Presentation.Areas.Admin.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw;
             }
         }
+
 
         // DELETE
         [HttpDelete]

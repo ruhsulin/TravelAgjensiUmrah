@@ -101,8 +101,10 @@
                     // Other localization keys...
                     "columns": {
                         "id": '@SharedLocalizer["Id"]',
-                        "user": '@SharedLocalizer["UserId"]',
+                        "userFirstName": '@SharedLocalizer["Firstname"]',
+                        "userLastName": '@SharedLocalizer["LastName"]',
                         "package": '@SharedLocalizer["PackageId"]',
+                        "packageName": '@SharedLocalizer["PackageName"]',
                         "reservationDate": '@SharedLocalizer["ReservationDate"]',
                         "price": '@SharedLocalizer["Price"]',
                         "status": '@SharedLocalizer["Status"]',
@@ -110,10 +112,11 @@
                     }
                 },
                 columns: [
-                    // { data: "id", title: '@SharedLocalizer["Id"]', width: "4%" },
-                    { data: "id", title: '@SharedLocalizer["Id"]' },
-                    { data: "user", title: '@SharedLocalizer["UserId"]' },
+                    { data: "id", title: '@SharedLocalizer["Id"]', width: "4%" },
+                    { data: "userFirstName", title: '@SharedLocalizer["Firstname"]' },
+                    { data: "userLastName", title: '@SharedLocalizer["LastName"]' },
                     { data: "package", title: '@SharedLocalizer["PackageId"]' },
+                    { data: "packageName", title: '@SharedLocalizer["PackageName"]' },
                     { data: "reservationDate", title: '@SharedLocalizer["ReservationDate"]', sClass: "text-right" },
                     { data: "price", title: '@SharedLocalizer["Price"]', sClass: "text-right" },
                     { data: "paymentMethod", title: '@SharedLocalizer["PaymentMethod"]', sClass: "text-right" },
@@ -177,7 +180,7 @@
                                 },
                                 success: function (data) {
                                     debugger;
-                                    $('#hotel-list').DataTable().ajax.reload();
+                                    $('#reservation-list').DataTable().ajax.reload();
                                     toastr.success('Deleted Successfully');
                                 },
                                 error: function (xhr, textStatus, errorThrown) {

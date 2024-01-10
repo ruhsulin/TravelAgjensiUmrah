@@ -1,4 +1,5 @@
-﻿using ravelAgjensiUmrah.App.Impementations;
+﻿using Microsoft.EntityFrameworkCore;
+using ravelAgjensiUmrah.App.Impementations;
 using TravelAgjensiUmrah.App.Interfaces;
 using TravelAgjensiUmrah.Data.Context;
 using TravelAgjensiUmrah.Data.Entities;
@@ -22,7 +23,8 @@ namespace TravelAgjensiUmrah.App.Impementations
 
         public IEnumerable<Reservation> GetAllReservations()
         {
-            return _travelAgencyUmrahContext.Reservations.ToList();
+            return _travelAgencyUmrahContext.Reservations.Include(r => r.User).Include(r => r.Package).ToList();
+
         }
 
         public void AddReservation(Reservation reservation)

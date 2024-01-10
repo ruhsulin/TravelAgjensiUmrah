@@ -36,6 +36,7 @@
                             <input type="hidden" asp-for="UserId" />
                             <input type="hidden" asp-for="NumberOfPeople" value="1" />
                             <input type="hidden" asp-for="Status" value="completed" />
+                        
                         </div> <!-- ./div for hidden inputs-->
 
                         <div class="card-body p-3">
@@ -88,11 +89,8 @@
                                     <div class="form-group">
                                         <label>@SharedLocalizer["PaymentMethod"] *</label>
                                         <div class="input-group">
-                                            <select asp-for="PaymentMethod" class="form-control">
-                                                <option value="">-- Select Payment Method --</option>
-                                                <option value="Cash">Cash</option>
-                                                <option value="Visa">Visa</option>
-                                                <option value="Maestro">Maestro</option>
+                                            <select asp-for="PaymentMethod" asp-items="@Model.PaymentMethods" class="form-control">
+                                                <option value="">- @SharedLocalizer["SelectPaymentMethod"] -</option>
                                             </select>
                                         </div>
                                     </div>

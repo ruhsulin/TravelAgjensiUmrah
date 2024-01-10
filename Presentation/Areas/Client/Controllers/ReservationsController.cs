@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Presentation.Areas.Client.Models.ReservationViewModel;
 using System.Security.Claims;
 using TravelAgjensiUmrah.App.Constants;
@@ -58,7 +59,14 @@ namespace Presentation.Areas.Client.Controllers
                 PackageName = package.PackageName,
                 BookingDate = DateTime.Now,
                 //   UserName = user.UserName,
-                TotalPrice = package.TicketPrice + package.MealPrice + package.VisaPrice + package.IhramPrice + package.ZemzemPrice + package.TransportInArabiaPrice + package.Service
+                TotalPrice = package.TicketPrice + package.MealPrice + package.VisaPrice + package.IhramPrice + package.ZemzemPrice + package.TransportInArabiaPrice + package.Service,
+
+                PaymentMethods = new SelectList(new List<SelectListItem>
+        {
+            new SelectListItem { Value = PaymentMethodConstants.Cash, Text = PaymentMethodConstants.Cash },
+            new SelectListItem { Value = PaymentMethodConstants.Maestro, Text = PaymentMethodConstants.Maestro },
+            new SelectListItem { Value = PaymentMethodConstants.Visa, Text = PaymentMethodConstants.Visa },
+        }, "Value", "Text")
             };
 
             ViewData["ShowNavbar"] = true;
@@ -81,7 +89,8 @@ namespace Presentation.Areas.Client.Controllers
                     BookingDate = model.BookingDate,
                     TotalPrice = model.TotalPrice * model.NumberOfPeople,
                     Status = model.Status,
-                    AdditionalRequests = model.AdditionalRequests
+                    AdditionalRequests = model.AdditionalRequests,
+                    PaymentMethod = model.PaymentMethod
 
                     //// Map other necessary properties
                 };

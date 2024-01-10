@@ -36,6 +36,8 @@ namespace Presentation.Areas.Admin.Models.ReservationViewModel
         [StringLength(100)]
         [Display(Name = "Payment Method")]
         public string? PaymentMethod { get; set; } // e.g., 'Credit Card', 'PayPal'
+        public string? PaymentMethodId { get; set; } = null;
+        public SelectList? PaymentMethods { get; set; }
 
         [Display(Name = "Additional Requests")]
         public string? AdditionalRequests { get; set; }
